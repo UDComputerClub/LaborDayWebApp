@@ -20,9 +20,9 @@
                 <td>
                     <b>Evolve From</b>
                     <br>
-                    <canvas id="img1" class="thumbnail"></canvas>
+                    <canvas ng-show="stagestatus[1]" id="img1" class="thumbnail"></canvas>
                     <div class="right">
-                        <input ng-change="selectStage(1)" id="upload1" name="upload1" type="file"
+                        <input fileread="stages[1]" accept="image/gif, image/jpeg, image/png" ng-change="selectStage(1)" id="upload1" name="upload1" type="file"
                                accept="image/png/jpeg">
                         <br>
                         <button ng-click="cropStage(1)" id="crop1" class="left separateButtons">
@@ -35,9 +35,9 @@
                 <td class="separateStagePannels">
                     <b>Evolve To</b>
                     <br>
-                    <canvas id="img2" class="thumbnail"></canvas>  
+                    <canvas ng-show="stagestatus[2]" id="img2" class="thumbnail"></canvas>  
                     <div class="right">
-                        <input ng-change="selectStage(2)" id="upload2" name="upload2" type="file"
+                        <input fileread="stages[2]" accept="image/gif, image/jpeg, image/png" ng-change="selectStage(2)" id="upload2" name="upload2" type="file"
                                 accept="image/png/jpeg">
                         <br>
                         <button ng-click="cropStage(2)" id="crop2" class="left separateButtons">
@@ -49,7 +49,7 @@
                 <tr>
                 <td class="buttonPannel left">
                     <label for="evolStyle">Evolution Style:&nbsp;<label>
-                    <select id="evolStyle">
+                    <select ng-model="evolutionStyle" id="evolStyle">
                         <option>Traditional</option>
                         <option>Pokemon Go</option>
                     </select>
