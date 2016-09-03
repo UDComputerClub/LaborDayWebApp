@@ -1,0 +1,12 @@
+.right {
+    float: right;
+}
+
+.left-controls {
+    float: left;
+    margin-right: 10px;
+}
+
+.bordered {
+    border: 1px solid black;
+}
