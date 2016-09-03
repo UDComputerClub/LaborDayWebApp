@@ -1,26 +1,39 @@
 <!DOCTYPE html>
-<html>
+<html ng-module="clientScript">
     <head>
         <meta charset="UTF-8" />
         <title>Evolve Yo'self</title>
         <link rel="stylesheet" type="text/css" href="style.css">
+        <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular.min.js"></script>
         <script type="text/javascript" src="clientscript.js"></script>
     </head>
-    <body>
+    <body ng-controller="clientController">
         <h2>Evolve Yo'self</h2>
         <div class="left-controls">
-            <button ng-click="uploadstage(1)">Upload Stage 1</button>
-            <button ng-click="crop(2)">Crop Stage 1</button>
+            
+            <span>Select Stage 1</span><br>
+            <input ng-change="selectStage(1)" type="file" \></button>
+            <button ng-click="cropStage(1)">Crop Stage 1</button>
             <br><br>
-            <button ng-click="uploadstage(2)">Upload Stage 2</button>
-            <button ng-click="crop(2)">Crop Stage 2</button>
+            
+            <span>Select Stage 2</span><br>
+            <input ng-change="selectStage(2)" type="file"></button>
+            <button ng-click="cropStage(2)">Crop Stage 2</button>
             <br><br>
-            <form action="/rest/video" enctype="multipart/form-data" method="post">Add a title: <input name="title" type="text" /><br><br><input multiple="multiple" name="upload" type="file" /><br><br><input type="submit" value="Upload" /></form>
-            <select>
-                <option ng-model="">Traditional</option>
-                <option ng-model="">Pokemon Go</option>
+            
+            <select ng-model="evolutionStyle">
+                <option >Traditional</option>
+                <option >Pokemon Go</option>
             </select>
+            <br><br>
+            
+            <p>Add a title: <input ng-model="fileTitle" name="title" type="text" /></p><br><br>
+            <br><br>
+            
+            <button ng-click="submitStages()" >Evolve Yo'self</button>
         </div>
+        
+        
         <canvas id="theCanvas" class="bordered"
                 width="400" height="300"></canvas>
     </body>
