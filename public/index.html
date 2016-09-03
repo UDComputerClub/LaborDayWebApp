@@ -12,13 +12,15 @@
         <div class="left-controls">
             
             <span>Select Stage 1</span><br>
-            <input ng-change="selectStage(1)" type="file" \></button>
-            <button ng-click="cropStage(1)">Crop Stage 1</button>
+            <input fileread="stages[1]" accept="image/gif, image/jpeg, image/png" ng-change="selectStage(1)" type="file" \></input>
+            <button ng-click="cropStage(1)">Crop Stage 1</button> <br>
+            <img ng-show="stagestatus[1]" src="{{stages[1]}}" alt="" />
             <br><br>
             
             <span>Select Stage 2</span><br>
-            <input ng-change="selectStage(2)" type="file"></button>
-            <button ng-click="cropStage(2)">Crop Stage 2</button>
+            <input fileread="stages[2]" accept="image/gif, image/jpeg, image/png" ng-change="selectStage(2)" type="file"></input>
+            <button ng-click="cropStage(2)">Crop Stage 2</button> <br>
+            <img ng-show="stagestatus[2]" src="{{stages[2]}}" alt="" />
             <br><br>
             
             <select ng-model="evolutionStyle">
