@@ -2,12 +2,9 @@
     float: right;
 }
 
-.left {
-	float: left;
-}
-
 .left-controls {
     float: left;
+    margin-right: 10px;
 }
 
 .bordered {
@@ -15,10 +12,9 @@
 }
 
 .thumbnail {
-    width: 100px;
-    height: 80px;
+    width: 325px;
+    height: 108px;
     border: 1px solid black;
-	float: left
 }
 
 .centered {
@@ -29,18 +25,6 @@ body {
 	text-align: center;
 }
 
-.appBody {
-	padding-top: 8%
-}
-
-.separateStagePannels {
-	padding-top: 25px
-}
-
-.buttonPannel {
-	padding-top: 35px
-}
-
-.separateButtons {
-	margin-top: 24px
+.separate {
+	padding-top: 50px
 }

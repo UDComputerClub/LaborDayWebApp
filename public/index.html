@@ -1,3 +1,7 @@
+<!--image inputs accept peramiter needs updating-->
+<!--is button pannel all right?-->
+<!--format needs text to be exactly sized-->
+
 <!DOCTYPE html>
 <html>
     <head>
@@ -6,21 +10,54 @@
         <link rel="stylesheet" type="text/css" href="style.css">
     </head>
     <body>
-        <h2>Evolve Yo'self</h2>
-        <div class="left-controls">
-            <button>Upload Stage 1</button>
-            <button>Crop Stage 1</button>
-            <br><br>
-            <button>Upload Stage 2</button>
-            <button>Crop Stage 2</button>
-            <br><br>
-            
-            <select>
-                <option>Traditional</option>
-                <option>Pokemon Go</option>
-            </select>
+        <img src="header.png" alt="Evolove Yo'self" class=centered width=100%>
+        <div class="centered appBody" id="interphase">
+            <table class="left-controls">
+                <tr>
+                <td>
+                    <b>Stage One</b>
+                    <br>
+                    <canvas id="img1" class="thumbnail"></canvas>
+                    <div class="right">
+                        <input id="upload1" name="upload1" type="file"
+                               accept="image/png/jpeg">
+                        <br>
+                        <button id="crop1" class="left separateButtons">
+                                Crop Image</button>
+                    </div>
+                </td>
+                </tr>
+
+                <tr>
+                <td class="separateStagePannels">
+                    <b>Stage Two</b>
+                    <br>
+                    <canvas id="img2" class="thumbnail"></canvas>  
+                    <div class="right">
+                        <input id="upload2" name="upload2" type="file"
+                                accept="image/png/jpeg">
+                        <br>
+                        <button id="crop2" class="left separateButtons">
+                                Crop Image</button>
+                    </div>
+                </td>
+                </tr>
+
+                <tr>
+                <td class="buttonPannel left">
+                    <lable for="evolStyle">Style:&nbsp<label>
+                    <select id="evolStyle">
+                        <option>Traditional</option>
+                        <option>Pokemon Go</option>
+                    </select>
+                    <button id="download">Download</button> 
+                    <button id="runDemo">Evolve!</button> 
+                </td>
+                </tr>
+            </table>
+
+            <canvas id="theCanvas" class="bordered"
+                    width="400" height="300"></canvas>
         </div>
-        <canvas id="theCanvas" class="bordered"
-                width="400" height="300"></canvas>
     </body>
 </html>
