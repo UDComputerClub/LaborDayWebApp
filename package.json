@@ -1,0 +1,25 @@
+{
+    "name": "labor-day-webapp",
+    "version": "0.1.0",
+    "description": "UD ACM Student Chapter project to build a web app over the labor day weekend.",
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+ssh://git@github.com/UDComputerClub/LaborDayWebApp.git"
+    },
+    "author": "Brian McCutchon <bmccutchon@udallas.edu> (http://brianmccutchon.com)",
+    "contributors": {
+
+    },
+    "license": "UNLICENSED",
+    "private": "true",
+    "bugs": {
+        "url": "https://github.com/UDComputerClub/LaborDayWebApp/issues"
+    },
+    "homepage": "https://github.com/UDComputerClub/LaborDayWebApp#readme",
+    "dependencies": {
+        "express": "^4.14.0"
+    }
+}

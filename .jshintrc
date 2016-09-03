@@ -1,0 +1,10 @@
+{
+    "esversion": 6,
+    "varstmt": true,
+    "forin": true,
+    "curly": true,
+    "undef": true,
+    "eqeqeq": true,
+    "strict": true,
+    "node": true
+}
