@@ -4,20 +4,21 @@
         <meta charset="UTF-8" />
         <title>Evolve Yo'self</title>
         <link rel="stylesheet" type="text/css" href="style.css">
+        <script type="text/javascript" src="clientscript.js"></script>
     </head>
     <body>
         <h2>Evolve Yo'self</h2>
         <div class="left-controls">
-            <button>Upload Stage 1</button>
-            <button>Crop Stage 1</button>
+            <button ng-click="uploadstage(1)">Upload Stage 1</button>
+            <button ng-click="crop(2)">Crop Stage 1</button>
             <br><br>
-            <button>Upload Stage 2</button>
-            <button>Crop Stage 2</button>
+            <button ng-click="uploadstage(2)">Upload Stage 2</button>
+            <button ng-click="crop(2)">Crop Stage 2</button>
             <br><br>
             <form action="/rest/video" enctype="multipart/form-data" method="post">Add a title: <input name="title" type="text" /><br><br><input multiple="multiple" name="upload" type="file" /><br><br><input type="submit" value="Upload" /></form>
             <select>
-                <option>Traditional</option>
-                <option>Pokemon Go</option>
+                <option ng-model="">Traditional</option>
+                <option ng-model="">Pokemon Go</option>
             </select>
         </div>
         <canvas id="theCanvas" class="bordered"
