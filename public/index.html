@@ -1,6 +1,7 @@
 <!--image inputs accept peramiter needs updating-->
 <!--is button pannel all right?-->
 <!--format needs text to be exactly sized-->
+<!--change "Evolve From/To" to "Before/After" or something-->
 
 <!DOCTYPE html>
 <html>
@@ -15,7 +16,7 @@
             <table class="left-controls">
                 <tr>
                 <td>
-                    <b>Stage One</b>
+                    <b>Evolve From</b>
                     <br>
                     <canvas id="img1" class="thumbnail"></canvas>
                     <div class="right">
@@ -30,7 +31,7 @@
 
                 <tr>
                 <td class="separateStagePannels">
-                    <b>Stage Two</b>
+                    <b>Evolove To</b>
                     <br>
                     <canvas id="img2" class="thumbnail"></canvas>  
                     <div class="right">
@@ -45,19 +46,20 @@
 
                 <tr>
                 <td class="buttonPannel left">
-                    <lable for="evolStyle">Style:&nbsp<label>
+                    <lable for="evolStyle">Evolution Style:&nbsp;<label>
                     <select id="evolStyle">
                         <option>Traditional</option>
                         <option>Pokemon Go</option>
                     </select>
-                    <button id="download">Download</button> 
-                    <button id="runDemo">Evolve!</button> 
                 </td>
                 </tr>
             </table>
 
             <canvas id="theCanvas" class="bordered"
                     width="400" height="300"></canvas>
+            <br>
+            <button id="runDemo" class="right">Evolve!</button>
+            <button id="download" class="right">Download</button> 
         </div>
     </body>
 </html>
