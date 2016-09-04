@@ -15,73 +15,40 @@
 
     <body ng-controller="clientController">
         <img src="./images/evolve yoself.png" alt="Evolve Yo'self" width=98%>
-        <div class="appBody" id="interphase">
-            <table class="left">
-                <tr>
-                <td>
-                    <img src="./images/upload stage 1.png"
-                            alt="Upload Stage 1"
-                        width=200>
-                    <br>
-                    <span ng-show="stage1Image">
-                        <!--a canvas object to display the "before" image on the
-                            left and buttons to upload and crop the image on the 
-                            right-->
-                        <canvas ngf-src="stage1Image" id="img1" class="thumbnail"></canvas>
-                        <img ngf-thumbnail="stage1Image" alt="Stage 1 Image"></img>
-                    </span>
-                    <div class="right">
-                        <input type="file" id="stage1" name="stage1" ngf-select ng-model="stage1Image" accept="image/png/jpeg" required>
-                        <br>
-                        <button id="crop1" class="cropButton"
-                                ng-click="cropStage(1)">
-                            <img src="./images/crop!.png" alt="Crop"
-                                width=60 height=30>
-                        </button>
-                    </div>
-                </td>
-                </tr>
-
-                <tr>
-                <td class="separateStagePannels">
-                    <img src="./images/upload stage 2.png"
-                            alt="Upload Stage 1"
-                        width=200>
-                    <br>
-                    <span ng-show="stage2Image">
-                        <!--a canvas object to display the "after" image on the
-                            left and buttons to upload and crop the image on the 
-                            right-->
-                        <canvas ng-model="stage2" id="img2" class="thumbnail"></canvas>
-                        <img ngf-thumbnail="stage2Image" />
-                    </span>
-                    <div class="right">
-                        <input id="upload2" name="upload2" type="file"
-                               accept="image/png/jpeg/gif"
-                               ngf-select 
-                               ng-model="stage2Image"
-                               required>
-                        <br>
-                        <button id="crop2" class="cropButton"
-                                ng-click="cropStage(2)">
-                            <img src="./images/crop!.png" alt="Crop Image"
-                                width=60 height=30>
-                        </button>
-                    </div>
-                </td>
-                </tr>
-
-                <tr>
-                <td class="styleSelector">
-                    <label for="evolStyle">Evolution Style:&nbsp;<label>
-                    <select id="evolStyle"
-                        ng-model="evolutionStyle">
-                        <option>Traditional</option>
-                        <option>Pokemon Go</option>
-                    </select>
-                </td>
-                </tr>
-            </table>
+        <div class="appBody" id="interface" class="left">
+        
+        
+            <!--iterate over two stages-->
+            <div ng-repeat="stage in stages" class="separateStagePannels">
+                <img src="./images/upload stage 1.png"
+                    alt="Upload Stage 1"
+                    width=200>
+                <br>
+                <button ng-click="cropStage($index)">
+                    <img src="./images/crop!.png" alt="Crop"
+                        width=60 height=30>
+                </button>
+                <input type="file" id="stage-{{$index+1}}" name="stage-{{$index+1}}" ngf-select ng-model="stage.image" accept="image/*" required>
+                <br>
+                <span ng-show="stage.shown">
+                    <!--a canvas object to display the "before" image on the
+                        left and buttons to upload and crop the image on the 
+                        right-->
+                    <canvas ngf-src="stage.image" id="img-{{$index+1}}" class="thumbnail"></canvas>
+                    <img ngf-thumbnail="stage.image" />
+                </span>
+            </div>
+            <!--stop repeating-->
+            
+            <!--style selctor-->
+            <div class="styleSelector">
+                <label for="evolStyle">Evolution Style:&nbsp;<label>
+                <select id="evolStyle"
+                    ng-model="evolutionStyle">
+                    <option>Traditional</option>
+                    <option>Pokemon Go</option>
+                </select>
+            </div>
             
             <!--stand in for banner adsence add-->
             <canvas class="mainCanvas" width=468 height=60></canvas>

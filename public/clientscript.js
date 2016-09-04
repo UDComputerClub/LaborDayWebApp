@@ -2,41 +2,26 @@ angular.module('clientScript', ['ngFileUpload'])
 .controller('clientController', function($scope) {
 
     // Staged Images - eventually stores the image data
-    $scope.stage1 = null;
-    $scope.stage2 = null;
-    $scope.stage1Shown = false;
-    $scope.stage2Shown = false;
-    console.log("got here");
+    $scope.stages = [
+        {image:null, shown:false},
+        {image:null, shown:false}
+    ];
     
-    // code directly from danial
+    // code from danial
     // http://stackoverflow.com/questions/13963022/angularjs-how-to-implement-a-simple-file-upload-with-multipart-form
+    
+    // handles a new file selection of an image for stage 1 or stage 2
     $scope.onFileSelect = function(file) {
         console.log("here");
         $scope.stage1Image = getAsDataURL(file);
     }
-    
-    // handles a new file selection of an image for stage 1 or stage 2
-    $scope.selectStage = function(files) {//, stage) {
-        //if (TODO error check) {
-            console.log("here1");
-            stage=1;
-            if (stage == 1) {
-                $scope.stage1Shown = true;
-            }
-            if (stage == 2) {
-                $scope.stage2Shown = true;
-            }
-            var fd = new FormData(); 
-            //Take the first selected file
-            fd.append("stage"+stage.toString(), files[0]);
-
-            /*uploadUrl, fd, {
-                withCredentials: true,
-                headers: {'Content-Type': undefined },
-                transformRequest: angular.identity
-            }).success( ...all right!... ).error( ..damn!... );*/
-            
-        //}
+    $scope.selectStage = function(files,stage) {//, stage) {
+        console.log("selectStage");
+        $scope.stageImage[stage] = getAsDataURL(file);
+        $scope.stageShown[stage] = true;
+        var fd = new FormData(); 
+        //Take the first selected file
+        fd.append("stage"+stage.toString(), files[0]);
     };
     
     // crops a selected file based on its preview
