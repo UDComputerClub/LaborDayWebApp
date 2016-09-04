@@ -13,20 +13,20 @@
         <script type="text/javascript" src="clientscript.js"></script>
     </head>
     <body ng-controller="clientController">
-        <img src="header.png" alt="Evolove Yo'self" class=centered width=100%>
+        <img src="header.png" alt="Evolve Yo'self" class=centered width=100%>
         <div class="centered appBody" id="interphase">
             <table class="left-controls">
                 <tr>
                 <td>
                     <b>Evolve From</b>
                     <br>
-                    <canvas ng-show="stagestatus[1]" id="img1" class="thumbnail"></canvas>
+                    <span ng-show="stage1Shown">
+                        <canvas ngf-src="stage1" id="img1" class="thumbnail"></canvas>
+                    </span>
                     <div class="right">
-                        <input fileread="stages[1]" accept="image/gif, image/jpeg, image/png" ng-change="selectStage(1)" id="upload1" name="upload1" type="file"
-                               accept="image/png/jpeg">
+                        <input type="file" id="stage1" name="stage1" ngf-select="onFileSelect($files)" accept="image/png/jpeg" multiple>
                         <br>
-                        <button ng-click="cropStage(1)" id="crop1" class="left separateButtons">
-                                Crop Image</button>
+                        <button ng-click="cropStage(1)" id="crop1" class="left separateButtons">Crop Image</button>
                     </div>
                 </td>
                 </tr>
@@ -35,13 +35,11 @@
                 <td class="separateStagePannels">
                     <b>Evolve To</b>
                     <br>
-                    <canvas ng-show="stagestatus[2]" id="img2" class="thumbnail"></canvas>  
+                    <canvas ng-show="stage2Shown" ng-model="stage2" id="img2" class="thumbnail"></canvas>  
                     <div class="right">
-                        <input fileread="stages[2]" accept="image/gif, image/jpeg, image/png" ng-change="selectStage(2)" id="upload2" name="upload2" type="file"
-                                accept="image/png/jpeg">
+                        <input fileread="stage2" ng-change="selectStage(2)" id="upload2" name="upload2" type="file" accept="image/png/jpeg">
                         <br>
-                        <button ng-click="cropStage(2)" id="crop2" class="left separateButtons">
-                                Crop Image</button>
+                        <button ng-click="cropStage(2)" id="crop2" class="left separateButtons">Crop Image</button>
                     </div>
                 </td>
                 </tr>
