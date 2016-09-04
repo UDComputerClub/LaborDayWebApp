@@ -1,15 +1,18 @@
-<!--image inputs accept peramiter needs updating-->
+<!--image inputs accept parameter needs updating-->
 <!--is button pannel all right?-->
 <!--format needs text to be exactly sized-->
 <!--change "Evolve From/To" to "Before/After" or something-->
 
 <!DOCTYPE html>
-<html ng-module="clientScript">
+<html ng-app="clientScript" ng-controller="clientController">
     <head>
         <meta charset="UTF-8" />
         <title>Evolve Yo'self</title>
         <link rel="stylesheet" type="text/css" href="style.css">
         <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular.min.js"></script>
+        <script type="text/javascript" src="ng-file-upload.js"></script>
+        <script type="text/javascript" src="ng-file-upload-shim.js"></script>
+        <script type="text/javascript" src="upload.js"></script>
         <script type="text/javascript" src="clientscript.js"></script>
     </head>
     <body ng-controller="clientController">
@@ -20,11 +23,12 @@
                 <td>
                     <b>Evolve From</b>
                     <br>
-                    <span ng-show="stage1Shown">
-                        <canvas ngf-src="stage1" id="img1" class="thumbnail"></canvas>
+                    <span ng-show="stage1Image">
+                        <canvas ngf-src="stage1Image" id="img1" class="thumbnail"></canvas>
+                        <img ngf-thumbnail="stage1Image" alt="Stage 1 Image"></img>
                     </span>
                     <div class="right">
-                        <input type="file" id="stage1" name="stage1" ngf-select="onFileSelect($files)" accept="image/png/jpeg" multiple>
+                        <input type="file" id="stage1" name="stage1" ngf-select ng-model="stage1Image" accept="image/png/jpeg" required>
                         <br>
                         <button ng-click="cropStage(1)" id="crop1" class="left separateButtons">Crop Image</button>
                     </div>
@@ -35,9 +39,12 @@
                 <td class="separateStagePannels">
                     <b>Evolve To</b>
                     <br>
-                    <canvas ng-show="stage2Shown" ng-model="stage2" id="img2" class="thumbnail"></canvas>  
+                    <span ng-show="stage2Image">
+                        <canvas ng-model="stage2" id="img2" class="thumbnail"></canvas>
+                        <img ngf-thumbnail="stage2Image" />
+                    </span>
                     <div class="right">
-                        <input fileread="stage2" ng-change="selectStage(2)" id="upload2" name="upload2" type="file" accept="image/png/jpeg">
+                        <input ngf-select ng-model="stage2Image" id="upload2" name="upload2" type="file" accept="image/png/jpeg" required>
                         <br>
                         <button ng-click="cropStage(2)" id="crop2" class="left separateButtons">Crop Image</button>
                     </div>

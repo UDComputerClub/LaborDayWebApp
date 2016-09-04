@@ -1,28 +1,6 @@
 
 
-var clientScript = angular.module('clientScript', []);
-
-
-// code directly from danial
-// http://stackoverflow.com/questions/13963022/angularjs-how-to-implement-a-simple-file-upload-with-multipart-form
-var MyCtrl = [ '$scope', 'Upload', function($scope, Upload) {
-  $scope.onFileSelect = function($files) {
-    console.log("here");
-    //$files: an array of files selected, each file has name, size, and type.
-    for (var i = 0; i < $files.length; i++) {
-      var $file = $files[i];
-      console.log("here");
-      /*Upload.upload({
-        url: 'my/upload/url',
-        file: $file,
-        progress: function(e){}
-      }).then(function(data, status, headers, config) {
-        // file is uploaded successfully
-        console.log(data);
-      }); */
-    }
-  }
-}];
+var clientScript = angular.module('clientScript', ['ngFileUpload']);
 
 clientScript.controller('clientController', function($scope) {
 
@@ -31,12 +9,19 @@ clientScript.controller('clientController', function($scope) {
     $scope.stage2 = null;
     $scope.stage1Shown = false;
     $scope.stage2Shown = false;
-    $
+    console.log("got here");
+    
+    // code directly from danial
+    // http://stackoverflow.com/questions/13963022/angularjs-how-to-implement-a-simple-file-upload-with-multipart-form
+    $scope.onFileSelect = function(file) {
+        console.log("here");
+        $scope.stage1Image = getAsDataURL(file);
+    }
     
     // handles a new file selection of an image for stage 1 or stage 2
     $scope.selectStage = function(files) {//, stage) {
         //if (TODO error check) {
-            console.log("here");
+            console.log("here1");
             stage=1;
             if (stage == 1) {
                 $scope.stage1Shown = true;
@@ -44,7 +29,7 @@ clientScript.controller('clientController', function($scope) {
             if (stage == 2) {
                 $scope.stage2Shown = true;
             }
-            var fd = new FormData();
+            var fd = new FormData(); 
             //Take the first selected file
             fd.append("stage"+stage.toString(), files[0]);
 
@@ -59,6 +44,7 @@ clientScript.controller('clientController', function($scope) {
     
     // crops a selected file based on its preview
     $scope.cropStage = function(stage) {
+        console.log("test");
         // TODO
     }
     
