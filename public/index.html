@@ -1,7 +1,5 @@
-<!--image inputs accept parameter needs updating-->
-<!--is button pannel all right?-->
-<!--format needs text to be exactly sized-->
-<!--change "Evolve From/To" to "Before/After" or something-->
+<!--may need more image file types accepted-->
+<!--mabey change "Evolve From/To" to "Before/After" or something-->
 
 <!DOCTYPE html>
 <html ng-app="clientScript" ng-controller="clientController">
@@ -15,44 +13,53 @@
         <script type="text/javascript" src="upload.js"></script>
         <script type="text/javascript" src="clientscript.js"></script>
     </head>
+
     <body ng-controller="clientController">
         <img src="header.png" alt="Evolve Yo'self" class=centered width=100%>
-        <div class="centered appBody" id="interphase">
-            <table class="left-controls">
+        <div class="appBody" id="interphase">
+            <table class="left">
                 <tr>
                 <td>
-                    <b>Evolve From</b>
+                    <img src=upload_stage_1.png alt="Upload Stage 1"
+                        width=200>
                     <br>
                     <span ng-show="stage1Image">
+                        <!--a canvas object to display the "before" image on the
+                            left and buttons to upload and crop the image on the 
+                            right-->
                         <canvas ngf-src="stage1Image" id="img1" class="thumbnail"></canvas>
                         <img ngf-thumbnail="stage1Image" alt="Stage 1 Image"></img>
                     </span>
                     <div class="right">
                         <input type="file" id="stage1" name="stage1" ngf-select ng-model="stage1Image" accept="image/png/jpeg" required>
                         <br>
-                        <button ng-click="cropStage(1)" id="crop1" class="left separateButtons">Crop Image</button>
+                        <button ng-click="cropStage(1)" id="crop1" class="cropButton">Crop Image</button>
                     </div>
                 </td>
                 </tr>
 
                 <tr>
                 <td class="separateStagePannels">
-                    <b>Evolve To</b>
+                    <img src=upload_stage_2.png alt="Upload Stage 1"
+                        width=200>
                     <br>
                     <span ng-show="stage2Image">
+                        <!--a canvas object to display the "after" image on the
+                            left and buttons to upload and crop the image on the 
+                            right-->
                         <canvas ng-model="stage2" id="img2" class="thumbnail"></canvas>
                         <img ngf-thumbnail="stage2Image" />
                     </span>
                     <div class="right">
                         <input ngf-select ng-model="stage2Image" id="upload2" name="upload2" type="file" accept="image/png/jpeg" required>
                         <br>
-                        <button ng-click="cropStage(2)" id="crop2" class="left separateButtons">Crop Image</button>
+                        <button ng-click="cropStage(2)" id="crop2" class="cropButton">Crop Image</button>
                     </div>
                 </td>
                 </tr>
 
                 <tr>
-                <td class="buttonPannel left">
+                <td class="styleSelector">
                     <label for="evolStyle">Evolution Style:&nbsp;<label>
                     <select ng-model="evolutionStyle" id="evolStyle">
                         <option>Traditional</option>
@@ -62,11 +69,14 @@
                 </tr>
             </table>
 
-            <canvas id="theCanvas" class="bordered"
-                    width="400" height="300"></canvas>
+            <canvas id="theCanvas" class="mainCanvas"
+                    width=400px height=325px>
+                </canvas>
             <br>
-            <button ng-click="submitStages()" id="runDemo" class="right">Evolve!</button>
-            <button ng-click="downloadProduct" id="download" class="right">Download</button> 
+            <button ng-click="submitStages()" id="runDemo" class="right">
+                    Evolve!</button>
+            <button ng-click="downloadProduct" id="download" class="right">
+                    Download</button> 
         </div>
     </body>
 </html>
