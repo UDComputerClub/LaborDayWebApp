@@ -1,7 +1,5 @@
-
-
-var clientScript = angular.module('clientScript', []);
-clientScript.controller('clientController', function($scope) {
+angular.module('clientScript', [])
+.controller('clientController', function($scope) {
 
     // Staged Images - eventually stores the image data
     $scope.stages = {1 : null, 2 : null};
@@ -15,13 +13,13 @@ clientScript.controller('clientController', function($scope) {
     // crops a selected file based on its preview
     $scope.cropStage = function(stage) {
         // TODO
-    }
+    };
     
     // submit the stages selected
     $scope.submitStages = function() {
         // TODO
-    }
-    
+    };
+
     /*
     // show the image uploaded 
     $scope.imageShown = false;
@@ -33,4 +31,18 @@ clientScript.controller('clientController', function($scope) {
         $scope.imageShown = true;
     };
     */
+})
+.directive('ldwRender', function() {
+    return {
+        restrict: "A",
+        link: function(scope, element, attrs) {
+            var ctx = element[0].getContext('2d');
+            function render() {
+                requestAnimationFrame(render);
+                scope.$eval(attrs.ldwRender, {'$ctx' : ctx});
+            }
+
+            requestAnimationFrame(render);
+        }
+    };
 });
