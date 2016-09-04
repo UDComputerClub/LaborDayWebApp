@@ -31,7 +31,7 @@
                         <img ngf-thumbnail="stage1Image" alt="Stage 1 Image"></img>
                     </span>
                     <div class="right">
-                        <input type="file" id="stage1" name="stage1" ngf-select ng-model="stage1Image" accept="image/png/jpeg" required>
+                        <input type="file" name="stage1" ngf-select ng-model="stage1Image" accept="image/*" required>
                         <br>
                         <button id="crop1" class="cropButton"
                                 ng-click="cropStage(1)">
@@ -56,11 +56,7 @@
                         <img ngf-thumbnail="stage2Image" />
                     </span>
                     <div class="right">
-                        <input id="upload2" name="upload2" type="file"
-                               accept="image/png/jpeg/gif"
-                               ngf-select 
-                               ng-model="stage2Image"
-                               required>
+                        <input type="file" name="stage2" ngf-select ng-model="stage2Image" accept="image/*" required>
                         <br>
                         <button id="crop2" class="cropButton"
                                 ng-click="cropStage(2)">
@@ -86,10 +82,10 @@
             <!--stand in for banner adsence add-->
             <canvas class="mainCanvas" width=468 height=60></canvas>
             <br>
-            <canvas id="theCanvas" class="mainCanvas"
+            <canvas ldw-render="animate($ctx)" id="theCanvas" class="mainCanvas"
                     width=468px height=260px></canvas>
             <br>
-            <button ng-click="submitStages()" id="runDemo" class="right">
+            <button ng-click="initAnimation()" id="runDemo" class="right">
                 <img src="./images/evolve!.png" alt="Evolve!" height=20>
             </button>
             <button ng-click="downloadProduct" id="download" class="right">
