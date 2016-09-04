@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html ng-app="clientScript">
+<html ng-app="clientScript" ng-controller="clientController">
     <head>
         <meta charset="UTF-8" />
         <title>Evolve Yo'self</title>
@@ -7,12 +7,14 @@
         <meta name="keywords" content="pokemon, evolve, photograph">
         <meta description" content="Pokemon evolve photos of yourself or your friends">
         <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular.min.js"></script>
+        <script type="text/javascript" src="ng-file-upload.js"></script>
+        <script type="text/javascript" src="ng-file-upload-shim.js"></script>
+        <script type="text/javascript" src="upload.js"></script>
         <script type="text/javascript" src="clientscript.js"></script>
     </head>
 
     <body ng-controller="clientController">
         <img src="./images/evolve yoself.png" alt="Evolve Yo'self" width=98%>
-        
         <div class="appBody" id="interphase">
             <table class="left">
                 <tr>
@@ -21,15 +23,15 @@
                             alt="Upload Stage 1"
                         width=200>
                     <br>
-                    <!--a canvas object to display the "before" image on the
-                        left and buttons to upload and crop the image on the 
-                        right-->
-                    <canvas id="img1" class="thumbnail"></canvas>
-
+                    <span ng-show="stage1Image">
+                        <!--a canvas object to display the "before" image on the
+                            left and buttons to upload and crop the image on the 
+                            right-->
+                        <canvas ngf-src="stage1Image" id="img1" class="thumbnail"></canvas>
+                        <img ngf-thumbnail="stage1Image" alt="Stage 1 Image"></img>
+                    </span>
                     <div class="right">
-                        <input id="upload1" ng-change="selectStage(1)"
-                                name="upload1" type="file"
-                                accept="image/png/jpeg/gif">
+                        <input type="file" id="stage1" name="stage1" ngf-select ng-model="stage1Image" accept="image/png/jpeg" required>
                         <br>
                         <button id="crop1" class="cropButton"
                                 ng-click="cropStage(1)">
@@ -46,15 +48,19 @@
                             alt="Upload Stage 1"
                         width=200>
                     <br>
-                    <!--a canvas object to display the "after" image on the
-                        left and buttons to upload and crop the image on the 
-                        right-->
-                    <canvas id="img2" class="thumbnail"></canvas>
-
+                    <span ng-show="stage2Image">
+                        <!--a canvas object to display the "after" image on the
+                            left and buttons to upload and crop the image on the 
+                            right-->
+                        <canvas ng-model="stage2" id="img2" class="thumbnail"></canvas>
+                        <img ngf-thumbnail="stage2Image" />
+                    </span>
                     <div class="right">
                         <input id="upload2" name="upload2" type="file"
                                accept="image/png/jpeg/gif"
-                               ng-click="cropStage(1)">
+                               ngf-select 
+                               ng-model="stage2Image"
+                               required>
                         <br>
                         <button id="crop2" class="cropButton"
                                 ng-click="cropStage(2)">
@@ -67,8 +73,9 @@
 
                 <tr>
                 <td class="styleSelector">
-                    <label for="evolStyle">Evolution Style:&nbsp;</label>
-                    <select id="evolStyle">
+                    <label for="evolStyle">Evolution Style:&nbsp;<label>
+                    <select id="evolStyle"
+                        ng-model="evolutionStyle">
                         <option>Traditional</option>
                         <option>Pokemon Go</option>
                     </select>
