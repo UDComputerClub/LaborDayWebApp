@@ -1,6 +1,5 @@
-var clientScript = angular.module('clientScript', ['ngFileUpload']);
-
-clientScript.controller('clientController', function($scope) {
+angular.module('clientScript', ['ngFileUpload'])
+.controller('clientController', function($scope) {
 
     // Staged Images - eventually stores the image data
     $scope.stage1 = null;
