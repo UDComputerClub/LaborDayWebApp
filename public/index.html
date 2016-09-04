@@ -1,7 +1,5 @@
-<!--image inputs accept peramiter needs updating-->
-<!--is button pannel all right?-->
-<!--format needs text to be exactly sized-->
-<!--change "Evolve From/To" to "Before/After" or something-->
+<!--may need more image file types accepted-->
+<!--mabey change "Evolve From/To" to "Before/After" or something-->
 
 <!DOCTYPE html>
 <html>
@@ -11,20 +9,26 @@
         <link rel="stylesheet" type="text/css" href="style.css">
     </head>
     <body>
-        <img src="header.png" alt="Evolove Yo'self" class=centered width=100%>
-        <div class="centered appBody" id="interphase">
-            <table class="left-controls">
+        <img src="header.png" alt="Evolove Yo'self" width=98%>
+
+        
+        <div class="appBody" id="interphase">
+            <table class="left">
                 <tr>
                 <td>
                     <b>Evolve From</b>
                     <br>
+                    <!--a canvas object to display the "before" image on the
+                        left and buttons to upload and crop the image on the 
+                        right-->
                     <canvas id="img1" class="thumbnail"></canvas>
+
                     <div class="right">
                         <input id="upload1" name="upload1" type="file"
-                               accept="image/png/jpeg">
+                               accept="image/png/jpeg/gif">
                         <br>
-                        <button id="crop1" class="left separateButtons">
-                                Crop Image</button>
+                        <button id="crop1" class="cropButton">Crop Image
+                            </button>
                     </div>
                 </td>
                 </tr>
@@ -33,19 +37,23 @@
                 <td class="separateStagePannels">
                     <b>Evolove To</b>
                     <br>
-                    <canvas id="img2" class="thumbnail"></canvas>  
+                    <!--a canvas object to display the "after" image on the
+                        left and buttons to upload and crop the image on the 
+                        right-->
+                    <canvas id="img2" class="thumbnail"></canvas>
+
                     <div class="right">
                         <input id="upload2" name="upload2" type="file"
-                                accept="image/png/jpeg">
+                                accept="image/png/jpeg/gif">
                         <br>
-                        <button id="crop2" class="left separateButtons">
-                                Crop Image</button>
+                        <button id="crop2" class="cropButton">Crop Image
+                            </button>
                     </div>
                 </td>
                 </tr>
 
                 <tr>
-                <td class="buttonPannel left">
+                <td class="styleSelector">
                     <lable for="evolStyle">Evolution Style:&nbsp;<label>
                     <select id="evolStyle">
                         <option>Traditional</option>
@@ -55,8 +63,9 @@
                 </tr>
             </table>
 
-            <canvas id="theCanvas" class="bordered"
-                    width="400" height="300"></canvas>
+            <canvas id="theCanvas" class="mainCanvas"
+                    width=400px height=300px>
+                </canvas>
             <br>
             <button id="runDemo" class="right">Evolve!</button>
             <button id="download" class="right">Download</button> 
