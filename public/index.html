@@ -2,15 +2,17 @@
 <!--mabey change "Evolve From/To" to "Before/After" or something-->
 
 <!DOCTYPE html>
-<html>
+<html ng-module="clientScript">
     <head>
         <meta charset="UTF-8" />
         <title>Evolve Yo'self</title>
         <link rel="stylesheet" type="text/css" href="style.css">
+        <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular.min.js"></script>
+        <script type="text/javascript" src="clientscript.js"></script>
     </head>
-    <body>
-        <img src="header.png" alt="Evolove Yo'self" width=98%>
 
+    <body ng-controller="clientController">
+        <img src="header.png" alt="Evolove Yo'self" width=98%>
         
         <div class="appBody" id="interphase">
             <table class="left">
@@ -25,11 +27,12 @@
                     <canvas id="img1" class="thumbnail"></canvas>
 
                     <div class="right">
-                        <input id="upload1" name="upload1" type="file"
-                               accept="image/png/jpeg/gif">
+                        <input id="upload1" ng-change="selectStage(1)"
+                                name="upload1" type="file"
+                                accept="image/png/jpeg/gif">
                         <br>
-                        <button id="crop1" class="cropButton">Crop Image
-                            </button>
+                        <button id="crop1" class="cropButton"
+                                ng-click="cropStage(1)">Crop Image</button>
                     </div>
                 </td>
                 </tr>
@@ -46,10 +49,11 @@
 
                     <div class="right">
                         <input id="upload2" name="upload2" type="file"
-                                accept="image/png/jpeg/gif">
+                                accept="image/png/jpeg/gif"
+                                ng-click="cropStage(1)">
                         <br>
-                        <button id="crop2" class="cropButton">Crop Image
-                            </button>
+                        <button id="crop2" class="cropButton"
+                                ng-click="cropStage(2)">Crop Image</button>
                     </div>
                 </td>
                 </tr>
@@ -69,8 +73,10 @@
                     width=400px height=325px>
                 </canvas>
             <br>
-            <button id="runDemo" class="right">Evolve!</button>
-            <button id="download" class="right">Download</button> 
+            <button ng-click="submitStages()" id="runDemo" class="right">
+                    Evolve!</button>
+            <button ng-click="downloadProduct" id="download" class="right">
+                    Download</button> 
         </div>
     </body>
 </html>
