@@ -1,0 +1,46 @@
+.right {
+    float: right;
+}
+
+.left {
+	float: left;
+}
+
+.left-controls {
+    float: left;
+}
+
+.bordered {
+    border: 1px solid black;
+}
+
+.thumbnail {
+    width: 100px;
+    height: 80px;
+    border: 1px solid black;
+	float: left
+}
+
+.centered {
+	display: inline-block
+}
+
+body {
+	text-align: center;
+}
+
+.appBody {
+	padding-top: 8%
+}
+
+.separateStagePannels {
+	padding-top: 30px
+}
+
+.buttonPannel {
+	padding-top: 30px
+}
+
+.separateButtons {
+	margin-top: 24px
+}

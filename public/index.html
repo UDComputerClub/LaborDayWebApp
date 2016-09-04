@@ -1,12 +1,67 @@
+<!--image inputs accept peramiter needs updating-->
+<!--is button pannel all right?-->
+<!--format needs text to be exactly sized-->
+<!--change "Evolve From/To" to "Before/After" or something-->
+
 <!DOCTYPE html>
-<html>
+<html ng-module="clientScript">
     <head>
         <meta charset="UTF-8" />
-        <title>Test</title>
+        <title>Evolve Yo'self</title>
+        <link rel="stylesheet" type="text/css" href="style.css">
+        <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular.min.js"></script>
+        <script type="text/javascript" src="clientscript.js"></script>
     </head>
-    <body>
-        It works!
+    <body ng-controller="clientController">
+        <img src="header.png" alt="Evolove Yo'self" class=centered width=100%>
+        <div class="centered appBody" id="interphase">
+            <table class="left-controls">
+                <tr>
+                <td>
+                    <b>Evolve From</b>
+                    <br>
+                    <canvas id="img1" class="thumbnail"></canvas>
+                    <div class="right">
+                        <input ng-change="selectStage(1)" id="upload1" name="upload1" type="file"
+                               accept="image/png/jpeg">
+                        <br>
+                        <button ng-click="cropStage(1)" id="crop1" class="left separateButtons">
+                                Crop Image</button>
+                    </div>
+                </td>
+                </tr>
 
-<form action="/rest/video" enctype="multipart/form-data" method="post">Add a title: <input name="title" type="text" /><br><br><input multiple="multiple" name="upload" type="file" /><br><br><input type="submit" value="Upload" /></form>
+                <tr>
+                <td class="separateStagePannels">
+                    <b>Evolve To</b>
+                    <br>
+                    <canvas id="img2" class="thumbnail"></canvas>  
+                    <div class="right">
+                        <input ng-change="selectStage(2)" id="upload2" name="upload2" type="file"
+                                accept="image/png/jpeg">
+                        <br>
+                        <button ng-click="cropStage(2)" id="crop2" class="left separateButtons">
+                                Crop Image</button>
+                    </div>
+                </td>
+                </tr>
+
+                <tr>
+                <td class="buttonPannel left">
+                    <label for="evolStyle">Evolution Style:&nbsp;<label>
+                    <select id="evolStyle">
+                        <option>Traditional</option>
+                        <option>Pokemon Go</option>
+                    </select>
+                </td>
+                </tr>
+            </table>
+
+            <canvas id="theCanvas" class="bordered"
+                    width="400" height="300"></canvas>
+            <br>
+            <button ng-click="submitStages()" id="runDemo" class="right">Evolve!</button>
+            <button ng-click="downloadProduct" id="download" class="right">Download</button> 
+        </div>
     </body>
 </html>

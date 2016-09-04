@@ -1,0 +1,44 @@
+<!--image inputs accept peramiter needs updating-->
+
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8" />
+        <title>Evolve Yo'self</title>
+        <link rel="stylesheet" type="text/css" href="style.css">
+    </head>
+    <body>
+        <img src="header.png" alt="Evolove Yo'self" class=centered width="100%">
+        <div class="centered separate" id="interphase">
+            <div class="left-controls">
+                <b>Stage One</b>
+                <br>
+                <input id="upload1" name="upload1" type="file"
+                        accept="image/png/jpeg">
+                <button id="crop1">Crop</button>
+                <br>
+                <canvas id="img1" class="thumbnail"></canvas>
+                <br><br>
+                <b>Stage Two</b>
+                <br>
+                <input id="upload2" name="upload2" type="file"
+                        accept="image/png/jpeg">
+                <button id="crop2">Crop</button>
+                <br>
+                <canvas id="img2" class="thumbnail"></canvas>        
+            </div>
+
+            <canvas id="theCanvas" class="bordered"
+                    width="400" height="300"></canvas>
+            <br>
+            <select id="evolStyle">
+                <option>Traditional</option>
+                <option>Pokemon Go</option>
+            </select>
+
+            <button id="runDemo">Evolve!</button>
+
+            <button id="download">Download</button>
+        </div>
+    </body>
+</html>
