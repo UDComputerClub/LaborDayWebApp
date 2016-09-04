@@ -1,5 +1,3 @@
-
-
 var clientScript = angular.module('clientScript', ['ngFileUpload']);
 
 clientScript.controller('clientController', function($scope) {
@@ -46,21 +44,12 @@ clientScript.controller('clientController', function($scope) {
     $scope.cropStage = function(stage) {
         console.log("test");
         // TODO
-    }
+    };
     
     // submit the stages selected
     $scope.submitStages = function() {
         // TODO
-    }
-    
-    // tried code from Fabio
-    // http://stackoverflow.com/questions/13963022/angularjs-how-to-implement-a-simple-file-upload-with-multipart-form
-    
-    // tried code directly from pawel
-    // http://stackoverflow.com/questions/19986178/displaying-an-image-after-uploading-in-angular-js
-    
-    // tried code directly from Endy Tjahjono
-    // http://stackoverflow.com/questions/17063000/ng-model-for-input-type-file
+    };
     
     /*
     // show the image uploaded 
@@ -73,4 +62,18 @@ clientScript.controller('clientController', function($scope) {
         $scope.imageShown = true;
     };
     */
+})
+.directive('ldwRender', function() {
+    return {
+        restrict: "A",
+        link: function(scope, element, attrs) {
+            var ctx = element[0].getContext('2d');
+            function render() {
+                requestAnimationFrame(render);
+                scope.$eval(attrs.ldwRender, {'$ctx' : ctx});
+            }
+
+            requestAnimationFrame(render);
+        }
+    };
 });

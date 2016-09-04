@@ -1,12 +1,11 @@
-<!--may need more image file types accepted-->
-<!--mabey change "Evolve From/To" to "Before/After" or something-->
-
 <!DOCTYPE html>
 <html ng-app="clientScript" ng-controller="clientController">
     <head>
         <meta charset="UTF-8" />
         <title>Evolve Yo'self</title>
         <link rel="stylesheet" type="text/css" href="style.css">
+        <meta name="keywords" content="pokemon, evolve, photograph">
+        <meta description" content="Pokemon evolve photos of yourself or your friends">
         <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular.min.js"></script>
         <script type="text/javascript" src="ng-file-upload.js"></script>
         <script type="text/javascript" src="ng-file-upload-shim.js"></script>
@@ -15,12 +14,13 @@
     </head>
 
     <body ng-controller="clientController">
-        <img src="header.png" alt="Evolve Yo'self" class=centered width=100%>
+        <img src="./images/evolve yoself.png" alt="Evolve Yo'self" width=98%>
         <div class="appBody" id="interphase">
             <table class="left">
                 <tr>
                 <td>
-                    <img src=upload_stage_1.png alt="Upload Stage 1"
+                    <img src="./images/upload stage 1.png"
+                            alt="Upload Stage 1"
                         width=200>
                     <br>
                     <span ng-show="stage1Image">
@@ -33,14 +33,19 @@
                     <div class="right">
                         <input type="file" id="stage1" name="stage1" ngf-select ng-model="stage1Image" accept="image/png/jpeg" required>
                         <br>
-                        <button ng-click="cropStage(1)" id="crop1" class="cropButton">Crop Image</button>
+                        <button id="crop1" class="cropButton"
+                                ng-click="cropStage(1)">
+                            <img src="./images/crop!.png" alt="Crop"
+                                width=60 height=30>
+                        </button>
                     </div>
                 </td>
                 </tr>
 
                 <tr>
                 <td class="separateStagePannels">
-                    <img src=upload_stage_2.png alt="Upload Stage 1"
+                    <img src="./images/upload stage 2.png"
+                            alt="Upload Stage 1"
                         width=200>
                     <br>
                     <span ng-show="stage2Image">
@@ -51,9 +56,17 @@
                         <img ngf-thumbnail="stage2Image" />
                     </span>
                     <div class="right">
-                        <input ngf-select ng-model="stage2Image" id="upload2" name="upload2" type="file" accept="image/png/jpeg" required>
+                        <input id="upload2" name="upload2" type="file"
+                               accept="image/png/jpeg/gif"
+                               ngf-select 
+                               ng-model="stage2Image"
+                               required>
                         <br>
-                        <button ng-click="cropStage(2)" id="crop2" class="cropButton">Crop Image</button>
+                        <button id="crop2" class="cropButton"
+                                ng-click="cropStage(2)">
+                            <img src="./images/crop!.png" alt="Crop Image"
+                                width=60 height=30>
+                        </button>
                     </div>
                 </td>
                 </tr>
@@ -61,22 +74,30 @@
                 <tr>
                 <td class="styleSelector">
                     <label for="evolStyle">Evolution Style:&nbsp;<label>
-                    <select ng-model="evolutionStyle" id="evolStyle">
+                    <select id="evolStyle"
+                        ng-model="evolutionStyle">
                         <option>Traditional</option>
                         <option>Pokemon Go</option>
                     </select>
                 </td>
                 </tr>
             </table>
-
+            
+            <!--stand in for banner adsence add-->
+            <canvas class="mainCanvas" width=468 height=60></canvas>
+            <br>
             <canvas id="theCanvas" class="mainCanvas"
-                    width=400px height=325px>
-                </canvas>
+                    width=468px height=260px></canvas>
             <br>
             <button ng-click="submitStages()" id="runDemo" class="right">
-                    Evolve!</button>
+                <img src="./images/evolve!.png" alt="Evolve!" height=20>
+            </button>
             <button ng-click="downloadProduct" id="download" class="right">
-                    Download</button> 
+                <img src="./images/download!.png" alt="Download" height=20>
+            </button> 
+            <br><br>
+            <!--stand in for leaderboard adsence add-->
+            <canvas class="mainCanvas" width=728 height=90></canvas>
         </div>
     </body>
 </html>
