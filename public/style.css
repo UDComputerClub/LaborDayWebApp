@@ -1,3 +1,9 @@
+@font-face {
+font-family: 'EarlyGameBoy';
+// directory path must be on server
+src: url(directory_path/EarlyGameBoy.ttf);
+}
+
 html { 
   background: url(./images/background.png) no-repeat center center fixed; 
   -webkit-background-size: cover;
@@ -71,4 +77,9 @@ body {
 
 .bordered {
 	border: 1px solid block;
+}
+
+.gameBoyFont {
+font-family: 'EarlyGameBoy', 'Arial';
+line-height:100%;
 }
