@@ -4,8 +4,8 @@ clientScript.controller('clientController', function($scope, Upload) {
     // Staged Images - eventually stores the image data
     $scope.thumbnailSide = 64;
     $scope.stages = [
-        {image:null, imageElem: new Image()},
-        {image:null, imageElem: new Image()}
+        {image:null, imageElem: new Image(), showLabel: true},
+        {image:null, imageElem: new Image(), showLabel: true}
     ];
 
     function renderGen1(ctx) {
@@ -58,6 +58,7 @@ clientScript.controller('clientController', function($scope, Upload) {
             .then(function (url) {
                 stage.imageElem.src = url;
             });
+		stage.showLabel = false;
         //$scope.stageImage[stage] = getAsDataURL(file);
         //$scope.stageShown[stage] = true;
         //var fd = new FormData();
