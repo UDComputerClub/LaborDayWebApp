@@ -120,7 +120,7 @@ clientScript.controller('clientController', function($scope, Upload) {
             var elapsed = new Date() - startTime;
             var isStage1 = (elapsed%(2*getMs(elapsed)))<getMs(elapsed);
 
-            ctx.font = "24px EarlyGameBoy";
+            ctx.font = "24px Early GameBoy";
             ctx.fillText("What? Your _____ is evolving!",30,30);
 
             ctx.drawImage(isStage1 ? stages[0] : stages[1], (canvasWidth-spriteDim)/2,
