@@ -58,16 +58,18 @@
                 <!--stand in for banner adsence add-->
                 <canvas class="canvas" width=468 height=60></canvas>
                 <br>
-                <canvas id="theCanvas" class="canvas"
+                <canvas ldw-render="animate($ctx)" id="theCanvas" class="canvas"
                         width=468px height=260px></canvas>
                 <br>
-                <button ng-click="submitStages()" id="runDemo" >
-                    <img src="./images/evolve!.png" alt="Evolve!" class="controlButton">
+                <button ng-click="initAnimation()" id="runDemo">
+                    <img src="./images/evolve!.png" alt="Evolve!" height=20>
                 </button>
                 <button ng-click="downloadProduct" id="download">
                     <img src="./images/download!.png" alt="Download!" class="controlButton">
                 </button> 
             </div>
+            <!--stand in for leaderboard adsence add-->
+            <canvas class="mainCanvas" width=728 height=90></canvas>
         </div>
         <br><br>
         <!--stand in for leaderboard adsence add-->
