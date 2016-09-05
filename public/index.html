@@ -4,6 +4,7 @@
         <meta charset="utf-8" />
         <title>Evolve Yo'self</title>
         <link rel="stylesheet" type="text/css" href="style.css">
+
         <meta name="keywords" content="Pokemon, evolve, evolution, animation,
             video">
         <meta name="description" content='Evolve yourself and your friends --
@@ -15,6 +16,8 @@
         <script src="ng-file-upload-shim.js"></script>
         <script src="upload.js"></script>
         <script src="clientscript.js"></script>
+      	<script src="pnglib.js"></script>
+
     </head>
 
     <body ng-controller="clientController">
@@ -61,7 +64,7 @@
                 <canvas class="canvas" width=468 height=60></canvas>
                 <br>
                 <canvas ldw-render="animate($ctx)" id="theCanvas" class="canvas"
-                        width="468" height="260"></canvas>
+                    width=320px height=288px></canvas>
                 <br>
                 <button ng-click="initAnimation()" id="runDemo">
                     <img src="./images/evolve!.png" alt="Evolve!" height=20>
@@ -70,11 +73,16 @@
                     <img src="./images/download!.png" alt="Download!" class="controlButton">
                 </button>
             </div>
+
             <!--stand in for leaderboard adsence add-->
             <canvas class="mainCanvas" width=728 height=90></canvas>
         </div>
         <br><br>
         <!--stand in for leaderboard adsence add-->
         <canvas class="canvas" width="728" height="90" padding-top="10px"></canvas>
+	<!--hidden canvas for grayscaling-->
+	<div hidden>
+		<canvas id="hiddenCanvas" class="canvas" width="128" height="128"></canvas> 
+	</div>
     </body>
 </html>

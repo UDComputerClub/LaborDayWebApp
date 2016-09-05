@@ -67,6 +67,46 @@ clientScript.controller('clientController', function($scope, Upload) {
             });
     };
 
+	//helper func for grayscaling the images
+	/**$scope.grayscale = function(){
+	  var cnv = getElementbyId("hiddenCanvas");
+	  var ctx = cnv.getContext('2d');
+	  var img1Width = image1.width;
+	  var img1Height = image1.height;
+	  var img2Width = image2.width;
+	  var img2Height = image2.height;
+
+	  ctx.drawImage(image1, 0, 0);
+	  var imgPixels = ctx.getImageData(0,0,img1Width,img1Height);
+	  for(var y = 0; y < imgPixels.height; y++){
+	     for(var x = 0; x < imgPixels.width; x++){
+	          var i = (y * 4) * imgPixels.width + x * 4;
+	          var avg = (imgPixels.data[i] + imgPixels.data[i + 1] + imgPixels.data[i + 2]) / 3;
+	          imgPixels.data[i] = avg;
+	          imgPixels.data[i + 1] = avg;
+	          imgPixels.data[i + 2] = avg;
+	     }
+	  }
+	  var p = new PNGlib(img1Width, img1Height, 256);
+	  var background = p.color(0,0,0,0);
+
+	  for (var i = 0; i < 
+
+
+	  ctx.clearRect(128,128,0,0); // clear canvas
+
+	  ctx.drawImage(image2, 0, 0);
+	  var imgPixels = ctx.getImageData(0,0,img2Width,img2Height);
+	  for(var y = 0; y < imgPixels.height; y++){
+	     for(var x = 0; x < imgPixels.width; x++){
+	          var i = (y * 4) * imgPixels.width + x * 4;
+	          var avg = (imgPixels.data[i] + imgPixels.data[i + 1] + imgPixels.data[i + 2]) / 3;
+	          imgPixels.data[i] = avg;
+	          imgPixels.data[i + 1] = avg;
+	          imgPixels.data[i + 2] = avg;
+	     }
+	  }
+	};**/
     $scope.animate = function(ctx) {
         if(animateOn){
             ctx.globalCompositeOperation = 'destination-over';
@@ -81,6 +121,7 @@ clientScript.controller('clientController', function($scope, Upload) {
             var isStage1 = (elapsed%(2*getMs(elapsed)))<getMs(elapsed);
 
             ctx.drawImage(isStage1 ? image1 : image2,0,0,canvasWidth,canvasHeight);
+
         }
     };
 
