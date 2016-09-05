@@ -116,7 +116,6 @@ clientScript.controller('clientController', function($scope, Upload) {
             ctx.fillStyle = 'black';
             ctx.strokeStyle = 'black';
             ctx.save();
-            //ctx.translate(150,150);
 
             var elapsed = new Date() - startTime;
             var isStage1 = (elapsed%(2*getMs(elapsed)))<getMs(elapsed);
@@ -124,7 +123,7 @@ clientScript.controller('clientController', function($scope, Upload) {
             ctx.font = "24px EarlyGameBoy";
             ctx.fillText("What? Your _____ is evolving!",30,30);
 
-            ctx.drawImage(stage.imageElem, (canvasWidth-spriteDim)/2,
+            ctx.drawImage(isStage1 ? stages[0] : stages[1], (canvasWidth-spriteDim)/2,
                 (canvasHeight-spriteDim)/2, spriteDim, spriteDim);
 
 
