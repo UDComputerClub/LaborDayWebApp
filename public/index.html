@@ -4,13 +4,12 @@
         <meta charset="utf-8" />
         <title>Evolve Yo'self</title>
         <link rel="stylesheet" type="text/css" href="style.css">
-
+        <link rel="icon" type="image" href="favicon.ico">
         <meta name="keywords" content="Pokemon, evolve, evolution, animation,
             video">
         <meta name="description" content='Evolve yourself and your friends --
             Pokémon style! Turn "before" and "after" pictures into a wonderful
             evolution animation!'>
-        <link rel="shortcut icon" href="/favicon.ico" />
         <link rel="apple-touch-icon" sizes="192x192" href="/icon-192x192.png" />
         <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular.min.js"></script>
         <script src="ng-file-upload.js"></script>
@@ -45,6 +44,9 @@
                     <canvas class="thumbnail" width="128px" height="128px"
                         ldw-render="drawThumbnail(stage, $ctx)"
                         ng-hide="stage.showLabel"></canvas>
+                    <br>
+            		<p ng-hide="stage.showLabel">Give your Pokémon a name:</p>
+                    <input type="text" ng-model="stage.name" ng-hide="stage.showLabel"/>
                     <br>
                     <button ng-click="cropStage($index)"
                             ng-hide="stage.showLabel">
