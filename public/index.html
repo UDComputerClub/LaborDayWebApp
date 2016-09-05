@@ -46,7 +46,8 @@
                         ng-hide="stage.showLabel"></canvas>
                     <br>
             		<p ng-hide="stage.showLabel">Give your Pokémon a name:</p>
-                    <input type="text" ng-model="stage.name" ng-hide="stage.showLabel"/>
+                    <input type="text" ng-model="stage.name" 
+                        ng-hide="stage.showLabel" />
                     <br>
                     <button ng-click="cropStage($index)"
                             ng-hide="stage.showLabel">
