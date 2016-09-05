@@ -37,8 +37,6 @@ body {
 }
 
 .thumbnail {
-    width: 100px;
-    height: 80px;
     border: 1px solid black;
 	float: left;
 	background-color: white;

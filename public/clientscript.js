@@ -68,7 +68,8 @@ clientScript.controller('clientController', function($scope, Upload) {
 
     $scope.drawThumbnail = function(stage, ctx) {
         var side = $scope.thumbnailSide;
-        ctx.drawImage(stage.imageElem, 0, 0, side, side);
+        var image = stage.imageElem;
+        ctx.drawImage(image, 0, 0, spriteDim, spriteDim);
     }
 
 	//helper func for grayscaling the images
@@ -128,6 +129,7 @@ clientScript.controller('clientController', function($scope, Upload) {
 
             ctx.drawImage(stage.imageElem, (canvasWidth-spriteDim)/2,
                 (canvasHeight-spriteDim)/2, spriteDim, spriteDim);
+
         }
     };
 
