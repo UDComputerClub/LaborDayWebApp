@@ -13,9 +13,25 @@ body {
 .appBody {
 	padding-top: 5%;
 	display: inline-block;
+	display: flex;
 }
 
-.mainCanvas {
+.sidemenu {
+    display: table-cell;
+    width: 50%; /* depends on the number of columns */
+
+    padding: 1em;
+    float: left;
+}
+.mainContent {
+    display: table-cell;
+    width: 50%; /* depends on the number of columns */
+
+    padding: 1em;
+    float: right;
+}
+
+.canvas {
     border: 1px solid black;
 	background-color: white;
 }
@@ -33,13 +49,16 @@ body {
 	margin-top: 10px;
 }
 
+.controlButton {
+    height: 30px;
+}
+
 .separateStagePannels {
 	padding-top: 20px
 }
 
 .styleSelector {
-	float: left;
-	padding-top: 15px;
+	padding-bottom: 15px;
 }
 
 .right {

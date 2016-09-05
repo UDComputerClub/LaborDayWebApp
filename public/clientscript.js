@@ -3,8 +3,8 @@ angular.module('clientScript', ['ngFileUpload'])
 
     // Staged Images - eventually stores the image data
     $scope.stages = [
-        {image:null, shown:false},
-        {image:null, shown:false}
+        {image:null},
+        {image:null}
     ];
     
     // code from danial
