@@ -8,10 +8,25 @@ clientScript.controller('clientController', function($scope, Upload) {
         {image:null, imageElem: new Image()}
     ];
 
+    function renderGen1(ctx) {
+        ctx.fillStyle = 'black';
+        ctx.strokeStyle = 'black';
+        ctx.save();
+
+        var elapsed = new Date() - startTime;
+        var ms = getMs(elapsed);
+        var isStage1 = elapsed % (2*ms) < ms;
+
+        var stage = isStage1 ? $scope.stages[0] : $scope.stages[1];
+
+        ctx.drawImage(stage.imageElem, (canvasWidth-spriteDim)/2,
+            (canvasHeight-spriteDim)/2, spriteDim, spriteDim);
+    }
+
     // TODO Each style should have its own rendering function
     $scope.evolveStyles = [
-        {name: 'Gold/Silver/Crystal'},
-        {name: 'Ruby/Sapphire/Emerald'}
+        {name: 'Gold/Silver/Crystal', render: renderGen1},
+        {name: 'Ruby/Sapphire/Emerald', render: renderGen1}
     ];
 
     $scope.evolutionStyle = $scope.evolveStyles[0];
@@ -69,7 +84,7 @@ clientScript.controller('clientController', function($scope, Upload) {
     $scope.drawThumbnail = function(stage, ctx) {
         var side = $scope.thumbnailSide;
         ctx.drawImage(stage.imageElem, 0, 0, side, side);
-    }
+    };
 
 	//helper func for grayscaling the images
 	$scope.grayscale = function(){
@@ -114,21 +129,8 @@ clientScript.controller('clientController', function($scope, Upload) {
 
     $scope.animate = function(ctx) {
         if(animateOn){
-            ctx.globalCompositeOperation = 'destination-over';
             ctx.clearRect(0,0,canvasWidth,canvasHeight); // clear canvas
-
-            ctx.fillStyle = 'black';
-            ctx.strokeStyle = 'black';
-            ctx.save();
-
-            var elapsed = new Date() - startTime;
-            var isStage1 = (elapsed%(2*getMs(elapsed)))<getMs(elapsed);
-
-            var stage = isStage1 ? $scope.stages[0] : $scope.stages[1];
-
-            ctx.drawImage(stage.imageElem, (canvasWidth-spriteDim)/2,
-                (canvasHeight-spriteDim)/2, spriteDim, spriteDim);
-
+            $scope.evolutionStyle.render(ctx);
         }
     };
 
