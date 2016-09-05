@@ -1,3 +1,10 @@
+@font-face {
+  font-family: 'Early GameBoy';
+  src: url('./Early GameBoy.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
 html { 
   background: url(./images/background.png) no-repeat center center fixed; 
   -webkit-background-size: cover;
@@ -81,4 +88,9 @@ body {
 
 .bordered {
 	border: 1px solid block;
+}
+
+.gameBoyFont {
+  font-family: 'Early GameBoy', 'Arial';
+  line-height:100%;
 }
