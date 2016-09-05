@@ -2,15 +2,34 @@ var clientScript = angular.module('clientScript', ['ngFileUpload']);
 
 clientScript.controller('clientController', function($scope, Upload) {
     // Staged Images - eventually stores the image data
+    $scope.thumbnailSide = 64;
     $scope.stages = [
-        {image:null},
-        {image:null}
+        {image:null, imageElem: new Image()},
+        {image:null, imageElem: new Image()}
     ];
+
+    function renderGen1(ctx) {
+        ctx.fillStyle = 'black';
+        ctx.strokeStyle = 'black';
+        ctx.save();
+
+        var elapsed = new Date() - startTime;
+        var ms = getMs(elapsed);
+        var isStage1 = elapsed % (2*ms) < ms;
+
+        var stage = isStage1 ? $scope.stages[0] : $scope.stages[1];
+
+        ctx.font = "24px Early GameBoy";
+        ctx.fillText("What? Your _____ is evolving!",30,30);
+
+        ctx.drawImage(stage.imageElem, (canvasWidth-spriteDim)/2,
+            (canvasHeight-spriteDim)/2, spriteDim, spriteDim);
+    }
 
     // TODO Each style should have its own rendering function
     $scope.evolveStyles = [
-        {name: 'Gold/Silver/Crystal'},
-        {name: 'Ruby/Sapphire/Emerald'}
+        {name: 'Gold/Silver/Crystal', render: renderGen1},
+        {name: 'Ruby/Sapphire/Emerald', render: renderGen1}
     ];
 
     $scope.evolutionStyle = $scope.evolveStyles[0];
@@ -20,8 +39,6 @@ clientScript.controller('clientController', function($scope, Upload) {
     var canvasWidth = 320;
     var canvasHeight = 288;
     var spriteDim = 128;
-    var image1 = new Image();
-    var image2 = new Image();
 
     // Gets the number of milliseconds for which to display each image when
     // oscillating between images in certain evolution styles.
@@ -37,14 +54,18 @@ clientScript.controller('clientController', function($scope, Upload) {
         console.log("here");
         $scope.stage1Image = getAsDataURL(file);
     };
-
-    $scope.selectStage = function(files,stage) {//, stage) {
+    
+    $scope.selectStage = function(stage) {
         console.log("selectStage");
-        $scope.stageImage[stage] = getAsDataURL(file);
-        $scope.stageShown[stage] = true;
-        var fd = new FormData();
+        Upload.base64DataUrl(stage.image)
+            .then(function (url) {
+                stage.imageElem.src = url;
+            });
+        //$scope.stageImage[stage] = getAsDataURL(file);
+        //$scope.stageShown[stage] = true;
+        //var fd = new FormData();
         //Take the first selected file
-        fd.append("stage"+stage.toString(), files[0]);
+        //fd.append("stage"+stage.toString(), files[0]);*/
     };
 
     // crops a selected file based on its preview
@@ -60,16 +81,15 @@ clientScript.controller('clientController', function($scope, Upload) {
 
     $scope.initAnimation = function(){
         startTime = new Date();
-        Upload.base64DataUrl([$scope.stages[0].image, $scope.stages[1].image])
-            .then(function (urls) {
-                image1.src = urls[0];
-                image2.src = urls[1];
-                animateOn = true;
-            });
+        animateOn = true;
+    };
+
+    $scope.drawThumbnail = function(stage, ctx) {
+        ctx.drawImage(stage.imageElem, 0, 0, spriteDim, spriteDim);
     };
 
 	//helper func for grayscaling the images
-	/**$scope.grayscale = function(){
+	$scope.grayscale = function(){
 	  var cnv = getElementbyId("hiddenCanvas");
 	  var ctx = cnv.getContext('2d');
 	  var img1Width = image1.width;
@@ -88,10 +108,9 @@ clientScript.controller('clientController', function($scope, Upload) {
 	          imgPixels.data[i + 2] = avg;
 	     }
 	  }
-	  var p = new PNGlib(img1Width, img1Height, 256);
 	  var background = p.color(0,0,0,0);
 
-	  for (var i = 0; i < 
+	  //for (var i = 0; i < 
 
 
 	  ctx.clearRect(128,128,0,0); // clear canvas
@@ -107,25 +126,13 @@ clientScript.controller('clientController', function($scope, Upload) {
 	          imgPixels.data[i + 2] = avg;
 	     }
 	  }
-	};**/
+
+	};
+
     $scope.animate = function(ctx) {
         if(animateOn){
-            ctx.globalCompositeOperation = 'destination-over';
             ctx.clearRect(0,0,canvasWidth,canvasHeight); // clear canvas
-
-            ctx.fillStyle = 'black';
-            ctx.strokeStyle = 'black';
-            ctx.save();
-
-            var elapsed = new Date() - startTime;
-            var isStage1 = (elapsed%(2*getMs(elapsed)))<getMs(elapsed);
-
-            ctx.font = "24px Early GameBoy";
-            ctx.fillText("What? Your _____ is evolving!",30,30);
-
-            ctx.drawImage(isStage1 ? stages[0] : stages[1], (canvasWidth-spriteDim)/2,
-                (canvasHeight-spriteDim)/2, spriteDim, spriteDim);
-
+            $scope.evolutionStyle.render(ctx);
 
         }
     };
