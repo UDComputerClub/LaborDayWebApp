@@ -4,8 +4,8 @@ clientScript.controller('clientController', function($scope, Upload) {
     // Staged Images - eventually stores the image data
     $scope.thumbnailSide = 64;
     $scope.stages = [
-        {image:null, imageElem: new Image(), drawing: false, number: 1},
-        {image:null, imageElem: new Image(), drawing: false, number: 2}
+        {image:null, imageElem: new Image(), drawing: false, number: 1, showLabel: true},
+        {image:null, imageElem: new Image(), drawing: false, number: 2, showLabel: true}
     ];
 
     function renderGen1(ctx) {
@@ -14,10 +14,31 @@ clientScript.controller('clientController', function($scope, Upload) {
         ctx.save();
 
         var elapsed = new Date() - startTime;
-        var ms = getMs(elapsed);
-        var isStage1 = elapsed % (2*ms) < ms;
+        var isStage1;
 
-        var stage = isStage1 ? $scope.stages[0] : $scope.stages[1];
+		elapsed = elapsed%12000;
+
+		if(elapsed < 3000) {
+			isStage1 = 0;
+		} else if(elapsed < 3050) {
+			isStage1 = 1;
+		} else if(elapsed < 4000) {
+			isStage1 = 0;
+		} else if(elapsed < 4080) {
+			isStage1 = 1;
+		} else if(elapsed < 5000) {
+			isStage1 = 0;
+		} else if(elapsed < 8000) {
+			isStage1 = elapsed%2;
+		} else {
+			isStage1 = 1;
+		}
+
+        var stage = isStage1 ? $scope.stages[1] : $scope.stages[0];
+
+        ctx.font = "24px Early GameBoy";
+        ctx.fillText("What? _____", 10, canvasHeight-44); //20 padding plus 24 line height
+        ctx.fillText("is evolving!", 10, canvasHeight-10); //10 padding left and below
 
         ctx.drawImage(stage.imageElem, (canvasWidth-spriteDim)/2,
             (canvasHeight-spriteDim)/2, spriteDim, spriteDim);
@@ -59,6 +80,7 @@ clientScript.controller('clientController', function($scope, Upload) {
             .then(function (url) {
                 stage.imageElem.src = url;
             });
+		stage.showLabel = false;
     };
 
     // crops a selected file based on its preview
@@ -156,6 +178,7 @@ clientScript.controller('clientController', function($scope, Upload) {
         if(animateOn){
             ctx.clearRect(0,0,canvasWidth,canvasHeight); // clear canvas
             $scope.evolutionStyle.render(ctx);
+
         }
     };
 
