@@ -16,19 +16,28 @@ clientScript.controller('clientController', function($scope, Upload) {
         var elapsed = new Date() - startTime;
         var isStage1;
 
-		elapsed = elapsed%12000;
+        if(elapsed > 12852) {
+            startTime = new Date();
+            document.getElementById("audio").play();
+        };
 
-		if(elapsed < 3000) {
+        var part1 = 1800;
+        var part2 = part1+50;
+        var part3 = part2+800;
+        var part4 = part3+80;
+        var part5 = part4+500;
+        var part6 = 7300;
+		if(elapsed < part1) {
 			isStage1 = 0;
-		} else if(elapsed < 3050) {
+		} else if(elapsed < part2) {
 			isStage1 = 1;
-		} else if(elapsed < 4000) {
+		} else if(elapsed < part3) {
 			isStage1 = 0;
-		} else if(elapsed < 4080) {
+		} else if(elapsed < part4) {
 			isStage1 = 1;
-		} else if(elapsed < 5000) {
+		} else if(elapsed < part5) {
 			isStage1 = 0;
-		} else if(elapsed < 8000) {
+		} else if(elapsed < part6) {
 			isStage1 = elapsed%2;
 		} else {
 			isStage1 = 1;
@@ -99,7 +108,7 @@ clientScript.controller('clientController', function($scope, Upload) {
     };
 
     $scope.initAnimation = function(){
-        startTime = new Date();
+        startTime = new Date() - 15000;
         animateOn = true;
     };
 
