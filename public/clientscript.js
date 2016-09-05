@@ -56,19 +56,19 @@ clientScript.controller('clientController', function($scope, Upload) {
 
 	$scope.animate = function(ctx) {
 	  if(animateOn){
-		ctx.globalCompositeOperation = 'destination-over';
-	  ctx.clearRect(0,0,canvasWidth,canvasHeight); // clear canvas
+		  ctx.globalCompositeOperation = 'destination-over';
+	      ctx.clearRect(0,0,canvasWidth,canvasHeight); // clear canvas
 
-	  ctx.fillStyle = 'black';
-	  ctx.strokeStyle = 'black';
-	  ctx.save();
-	  //ctx.translate(150,150);
+	      ctx.fillStyle = 'black';
+	      ctx.strokeStyle = 'black';
+	      ctx.save();
+	      //ctx.translate(150,150);
 
-	  var elapsed = new Date() - startTime;
-	  var isStage1 = (elapsed%(2*getMs(elapsed)))<getMs(elapsed);
+	      var elapsed = new Date() - startTime;
+	      var isStage1 = (elapsed%(2*getMs(elapsed)))<getMs(elapsed);
 
-	  ctx.drawImage(isStage1 ? image1 : image2,0,0,canvasWidth,canvasHeight);
-	};
+	      ctx.drawImage(isStage1 ? image1 : image2,0,0,canvasWidth,canvasHeight);
+	    };
 	};
 
     
