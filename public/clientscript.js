@@ -19,6 +19,9 @@ clientScript.controller('clientController', function($scope, Upload) {
 
         var stage = isStage1 ? $scope.stages[0] : $scope.stages[1];
 
+        ctx.font = "24px Pokemon R/S";
+        ctx.fillText("What? Your _____ is evolving!",30,30);
+
         ctx.drawImage(stage.imageElem, (canvasWidth-spriteDim)/2,
             (canvasHeight-spriteDim)/2, spriteDim, spriteDim);
     }
@@ -35,7 +38,7 @@ clientScript.controller('clientController', function($scope, Upload) {
     var startTime;
     var canvasWidth = 320;
     var canvasHeight = 288;
-    var spriteDim = 128;
+    var spriteDim = 128; //sprites are square
 
     // Gets the number of milliseconds for which to display each image when
     // oscillating between images in certain evolution styles.
@@ -82,55 +85,49 @@ clientScript.controller('clientController', function($scope, Upload) {
     };
 
     $scope.drawThumbnail = function(stage, ctx) {
-        ctx.drawImage(stage.imageElem, 0, 0, spriteDim, spriteDim);
+        ctx.drawImage(stage.imageElem, 0, 0, spriteDim, spriteDim); //this line has issues
     };
-
-	//helper func for grayscaling the images
-	$scope.grayscale = function(){
-	  var cnv = getElementbyId("hiddenCanvas");
-	  var ctx = cnv.getContext('2d');
-	  var img1Width = image1.width;
-	  var img1Height = image1.height;
-	  var img2Width = image2.width;
-	  var img2Height = image2.height;
-
-	  ctx.drawImage(image1, 0, 0);
-	  var imgPixels = ctx.getImageData(0,0,img1Width,img1Height);
-	  for(var y = 0; y < imgPixels.height; y++){
-	     for(var x = 0; x < imgPixels.width; x++){
-	          var i = (y * 4) * imgPixels.width + x * 4;
-	          var avg = (imgPixels.data[i] + imgPixels.data[i + 1] + imgPixels.data[i + 2]) / 3;
-	          imgPixels.data[i] = avg;
-	          imgPixels.data[i + 1] = avg;
-	          imgPixels.data[i + 2] = avg;
-	     }
-	  }
-	  var background = p.color(0,0,0,0);
-
-	  //for (var i = 0; i < 
-
-
-	  ctx.clearRect(128,128,0,0); // clear canvas
-
-	  ctx.drawImage(image2, 0, 0);
-	  var imgPixels = ctx.getImageData(0,0,img2Width,img2Height);
-	  for(var y = 0; y < imgPixels.height; y++){
-	     for(var x = 0; x < imgPixels.width; x++){
-	          var i = (y * 4) * imgPixels.width + x * 4;
-	          var avg = (imgPixels.data[i] + imgPixels.data[i + 1] + imgPixels.data[i + 2]) / 3;
-	          imgPixels.data[i] = avg;
-	          imgPixels.data[i + 1] = avg;
-	          imgPixels.data[i + 2] = avg;
-	     }
-	  }
-
-	};
 
     $scope.animate = function(ctx) {
         if(animateOn){
             ctx.clearRect(0,0,canvasWidth,canvasHeight); // clear canvas
             $scope.evolutionStyle.render(ctx);
         }
+
+    // BEGIN GRAYSCALE MINI FUNCTION 
+        //var cnv = $scope.getElementById("hiddenCanvas");
+        //var temctx = cnv.getContext('2d');
+        var img1Width = 128;
+        var img1Height = 128;
+        var img2Width = 128;
+        var img2Height = 128;
+
+        //ctx.drawImage($scope.stages[0].imageElem, 0, 0);
+        var img1Pixels = ctx.getImageData(0,0,img1Width,img1Height);
+        for(var y = 0; y < img1Pixels.height; y++){
+         for(var x = 0; x < img1Pixels.width; x++){
+              var i = (y * 4) * img1Pixels.width + x * 4;
+              var avg = (img1Pixels.data[i] + img1Pixels.data[i + 1] + img1Pixels.data[i + 2]) / 3;
+              img1Pixels.data[i] = avg;
+              img1Pixels.data[i + 1] = avg;
+              img1Pixels.data[i + 2] = avg;
+         }
+        }
+
+        ctx.clearRect(128,128,0,0); // clear canvas
+
+        ctx.drawImage($scope.stages[1].imageElem, 0, 0); //this line also has issues
+        var img2Pixels = ctx.getImageData(0,0,img2Width,img2Height); 
+        for(var y = 0; y < img2Pixels.height; y++){
+         for(var x = 0; x < img2Pixels.width; x++){
+              var i = (y * 4) * img2Pixels.width + x * 4;
+              var avg = (img2Pixels.data[i] + img2Pixels.data[i + 1] + img2Pixels.data[i + 2]) / 3;
+              img2Pixels.data[i] = avg;
+              img2Pixels.data[i + 1] = avg;
+              img2Pixels.data[i + 2] = avg;
+         }
+        }
+        //END GRAYSCALE MINI FUNCTION
     };
 
 })
