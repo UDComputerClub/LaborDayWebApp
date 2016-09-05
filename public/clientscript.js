@@ -4,8 +4,8 @@ clientScript.controller('clientController', function($scope, Upload) {
     // Staged Images - eventually stores the image data
     $scope.thumbnailSide = 64;
     $scope.stages = [
-        {image:null, imageElem: new Image()},
-        {image:null, imageElem: new Image()}
+        {image:null, imageElem: new Image(), drawing: false, number: 1},
+        {image:null, imageElem: new Image(), drawing: false, number: 2}
     ];
 
     function renderGen1(ctx) {
@@ -54,15 +54,11 @@ clientScript.controller('clientController', function($scope, Upload) {
     
     $scope.selectStage = function(stage) {
         console.log("selectStage");
+        stage.drawing = true;
         Upload.base64DataUrl(stage.image)
             .then(function (url) {
                 stage.imageElem.src = url;
             });
-        //$scope.stageImage[stage] = getAsDataURL(file);
-        //$scope.stageShown[stage] = true;
-        //var fd = new FormData();
-        //Take the first selected file
-        //fd.append("stage"+stage.toString(), files[0]);*/
     };
 
     // crops a selected file based on its preview
@@ -82,7 +78,37 @@ clientScript.controller('clientController', function($scope, Upload) {
     };
 
     $scope.drawThumbnail = function(stage, ctx) {
-        ctx.drawImage(stage.imageElem, 0, 0, spriteDim, spriteDim);
+        // sorry if this is bad angular, Brian
+        if (stage.drawing) {
+            stage.drawing = false;
+
+            var fabThumbnail = new fabric.Canvas("thumb"+stage.number, {
+                isDrawingMode: true
+            });
+
+            var imgInstance = new fabric.Image(stage.imageElem, {
+                left: 0,
+                top: 0,
+                //bottom: spriteDim;
+                //right: spriteDim;
+            });
+            fabThumbnail.add(imgInstance);
+
+            fabThumbnail.freeDrawingBrush.color = "black";
+            fabThumbnail.freeDrawingBrush.width = 3;
+
+            fabThumbnail.on('path:created', function(options) {
+                var path = options.path;
+                fabThumbnail.isDrawingMode = false;
+                fabThumbnail.remove(imgInstance);
+                fabThumbnail.remove(path);
+                fabThumbnail.clipTo = function(ctx) {
+                    path.render(ctx);
+                };
+                fabThumbnail.add(imgInstance);
+            });
+        }
+        
     };
 
 	//helper func for grayscaling the images

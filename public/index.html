@@ -16,6 +16,7 @@
         <script src="ng-file-upload.js"></script>
         <script src="ng-file-upload-shim.js"></script>
         <script src="upload.js"></script>
+        <script src="fabric.min.js"></script>
         <script src="clientscript.js"></script>
 
     </head>
@@ -34,7 +35,7 @@
                     <!--a canvas object to display the "before" image on the
                         left and buttons to upload and crop the image on the
                         right-->
-                    <canvas class="thumbnail" width="128px" height="128px"
+                    <canvas id="thumb{{$index+1}}" class="thumbnail" width="128px" height="128px"
                         ldw-render="drawThumbnail(stage, $ctx)"></canvas>
 
                     <div class="imageControls">
