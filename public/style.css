@@ -1,7 +1,7 @@
 @font-face {
-font-family: 'Early GameBoy';
-// directory path must be on server
-src: url(directory_path/EarlyGameBoy.ttf);
+  font-family: 'Early GameBoy';
+  // directory path must be on server
+  src: url(directory_path/Early GameBoy.ttf);
 }
 
 html { 
@@ -85,6 +85,6 @@ body {
 }
 
 .gameBoyFont {
-font-family: 'Early GameBoy', 'Arial';
-line-height:100%;
+  font-family: 'Early GameBoy', 'Arial';
+  line-height:100%;
 }
