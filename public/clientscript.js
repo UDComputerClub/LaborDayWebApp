@@ -4,8 +4,8 @@ clientScript.controller('clientController', function($scope, Upload) {
     // Staged Images - eventually stores the image data
     $scope.thumbnailSide = 64;
     $scope.stages = [
-        {image:null, imageElem: new Image(), showLabel: true},
-        {image:null, imageElem: new Image(), showLabel: true}
+        {image:null, imageElem: new Image(), showLabel: true, name: "POKEMON"},
+        {image:null, imageElem: new Image(), showLabel: true, name: "POKEMON"}
     ];
 
     function renderGen1(ctx) {
@@ -44,10 +44,37 @@ clientScript.controller('clientController', function($scope, Upload) {
 		}
 
         var stage = isStage1 ? $scope.stages[1] : $scope.stages[0];
-
-        ctx.font = "24px Early GameBoy";
-        ctx.fillText("What? _____", 10, canvasHeight-44); //20 padding plus 24 line height
-        ctx.fillText("is evolving!", 10, canvasHeight-10); //10 padding left and below
+        
+        if(elapsed < 10000){
+            if($scope.stages[0].name.length < 8){
+                ctx.font = "24px Early GameBoy";
+                ctx.fillText("What? " + $scope.stages[0].name, 10, canvasHeight-44); //20 padding plus 24 line height
+                ctx.fillText("is evolving!", 10, canvasHeight-10); //10 padding left and below
+            }
+            else{
+                ctx.font = "10px Early GameBoy";
+                ctx.fillText("What? " + $scope.stages[0].name, 10, canvasHeight-44); //20 padding plus 24 line height
+                ctx.fillText("is evolving!", 10, canvasHeight-10); //10 padding left and below
+            }
+        }
+        else{
+            if($scope.stages[0].name.length < 6){
+                ctx.font = "24px Early GameBoy";
+                ctx.fillText($scope.stages[0].name + " evolved", 10, canvasHeight-44); //20 padding plus 24 line height
+            }
+            else{
+                ctx.font = "10px Early GameBoy";
+                ctx.fillText($scope.stages[0].name + " evolved", 10, canvasHeight-44); //20 padding plus 24 line height
+            }
+            if($scope.stages[1].name.length < 9){
+                ctx.font = "24px Early GameBoy";
+                ctx.fillText("into " + $scope.stages[1].name + "!", 10, canvasHeight-10); //10 padding left and below
+            }
+            else{
+                ctx.font = "10px Early GameBoy";
+                ctx.fillText("into " + $scope.stages[1].name + "!", 10, canvasHeight-10); //10 padding left and below
+            }
+        }
 
         ctx.drawImage(stage.imageElem, (canvasWidth-spriteDim)/2,
             (canvasHeight-spriteDim)/2, spriteDim, spriteDim);
