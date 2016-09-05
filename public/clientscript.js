@@ -72,7 +72,7 @@ clientScript.controller('clientController', function($scope, Upload) {
     }
 
 	//helper func for grayscaling the images
-	/**$scope.grayscale = function(){
+	$scope.grayscale = function(){
 	  var cnv = getElementbyId("hiddenCanvas");
 	  var ctx = cnv.getContext('2d');
 	  var img1Width = image1.width;
@@ -91,10 +91,9 @@ clientScript.controller('clientController', function($scope, Upload) {
 	          imgPixels.data[i + 2] = avg;
 	     }
 	  }
-	  var p = new PNGlib(img1Width, img1Height, 256);
 	  var background = p.color(0,0,0,0);
 
-	  for (var i = 0; i < 
+	  //for (var i = 0; i < 
 
 
 	  ctx.clearRect(128,128,0,0); // clear canvas
@@ -110,7 +109,8 @@ clientScript.controller('clientController', function($scope, Upload) {
 	          imgPixels.data[i + 2] = avg;
 	     }
 	  }
-	};**/
+
+	};
 
     $scope.animate = function(ctx) {
         if(animateOn){
@@ -120,14 +120,15 @@ clientScript.controller('clientController', function($scope, Upload) {
             ctx.fillStyle = 'black';
             ctx.strokeStyle = 'black';
             ctx.save();
-            //ctx.translate(150,150);
 
             var elapsed = new Date() - startTime;
             var isStage1 = (elapsed%(2*getMs(elapsed)))<getMs(elapsed);
+
             var stage = isStage1 ? $scope.stages[0] : $scope.stages[1];
 
             ctx.drawImage(stage.imageElem, (canvasWidth-spriteDim)/2,
                 (canvasHeight-spriteDim)/2, spriteDim, spriteDim);
+
         }
     };
 
