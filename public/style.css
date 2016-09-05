@@ -1,7 +1,8 @@
 @font-face {
   font-family: 'Early GameBoy';
-  // directory path must be on server
-  src: url(directory_path/Early GameBoy.ttf);
+  src: url('./Early GameBoy.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
 }
 
 html { 

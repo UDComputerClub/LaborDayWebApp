@@ -20,7 +20,8 @@ clientScript.controller('clientController', function($scope, Upload) {
         var stage = isStage1 ? $scope.stages[0] : $scope.stages[1];
 
         ctx.font = "24px Early GameBoy";
-        ctx.fillText("What? Your _____ is evolving!",30,30);
+        ctx.fillText("What? _____", 10, canvasHeight-44); //20 padding plus 24 line height
+        ctx.fillText("is evolving!", 10, canvasHeight-10); //10 padding left and below
 
         ctx.drawImage(stage.imageElem, (canvasWidth-spriteDim)/2,
             (canvasHeight-spriteDim)/2, spriteDim, spriteDim);
