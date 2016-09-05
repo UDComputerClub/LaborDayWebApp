@@ -1,27 +1,30 @@
 <!DOCTYPE html>
 <html ng-app="clientScript" ng-controller="clientController">
     <head>
-        <meta charset="UTF-8" />
+        <meta charset="utf-8" />
         <title>Evolve Yo'self</title>
         <link rel="stylesheet" type="text/css" href="style.css">
-        <meta name="keywords" content="pokemon, evolve, photograph">
-        <meta description" content="Pokemon evolve photos of yourself or your friends">
-        <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular.min.js"></script>
-        <script type="text/javascript" src="ng-file-upload.js"></script>
-        <script type="text/javascript" src="ng-file-upload-shim.js"></script>
-        <script type="text/javascript" src="upload.js"></script>
-        <script type="text/javascript" src="clientscript.js"></script>
+        <meta name="keywords" content="Pokemon, evolve, evolution, animation,
+            video">
+        <meta name="description" content='Evolve yourself and your friends --
+            Pokémon style! Turn "before" and "after" pictures into a wonderful
+            evolution animation!'>
+        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular.min.js"></script>
+        <script src="ng-file-upload.js"></script>
+        <script src="ng-file-upload-shim.js"></script>
+        <script src="upload.js"></script>
+        <script src="clientscript.js"></script>
     </head>
 
     <body ng-controller="clientController">
-        <img src="./images/evolve yoself.png" alt="Evolve Yo'self" width=98%>
-        <div class="appBody" id="interface" class="left">
-            
+        <img src="./images/evolve%20yoself.png" alt="Evolve Yo'self" width=98% />
+        <div class="appBody" id="interface">
+
             <div class="sidemenu">
-            
+
                 <!--iterate over two stages-->
                 <div ng-repeat="stage in stages" class="separateStagePannels">
-                    <img src="./images/upload stage {{$index+1}}.png"
+                    <img src="./images/upload%20stage%20{{$index+1}}.png"
                         alt="Upload Stage {{$index}}"
                         width=200>
                     <br>
@@ -29,44 +32,45 @@
                         <img src="./images/crop!.png" alt="Crop"
                             width=60 height=30>
                     </button>
-                    <input type="file" id="stage-{{$index+1}}" name="stage-{{$index+1}}" ngf-select ng-model="stage.image" accept="image/*" required>
+                    <input type="file" name="stage-{{$index+1}}" 
+                            ngf-select
+                            ngf-change="selectStage(stage)"
+                            ng-model="stage.image" accept="image/*" required>
                     <br>
-                    <span ng-show="stage" padding-top="10px" padding-bottom="10px">
+                    <span>
                         <!--a canvas object to display the "before" image on the
-                            left and buttons to upload and crop the image on the 
+                            left and buttons to upload and crop the image on the
                             right-->
-                        <canvas ngf-src="stage.image" id="img-{{$index+1}}" class="thumbnail"></canvas>
-                        <img ngf-thumbnail="stage.image" />
+                        <canvas class="thumbnail"
+                            ldw-render="drawThumbnail(stage, $ctx)"></canvas>
+                        <img ngf-thumbnail="stage.image" alt="" />
                     </span>
                 </div>
                 <!--stop repeating-->
-                
-                <!--style selctor-->
+
+                <!--style selector-->
                 <span class="styleSelector">
-                    <label for="evolStyle">Evolution Style:&nbsp;<label>
+                    <label for="evolStyle">Evolution Style:&nbsp;</label>
                     <select id="evolStyle"
-                        ng-init="evolutionStyle = option[0]"
-                        ng-model="evolutionStyle">
-                        <option>Gold/Silver</option>
-                        <option>Ruby/Saphire</option>
-                    </select>
+                        ng-options="style.name for style in evolveStyles"
+                        ng-model="evolutionStyle"></select>
                 </span>
-                
+
             </div>
-            
+
             <div class="mainContent">
                 <!--stand in for banner adsence add-->
                 <canvas class="canvas" width=468 height=60></canvas>
                 <br>
                 <canvas ldw-render="animate($ctx)" id="theCanvas" class="canvas"
-                        width=468px height=260px></canvas>
+                        width="468" height="260"></canvas>
                 <br>
                 <button ng-click="initAnimation()" id="runDemo">
                     <img src="./images/evolve!.png" alt="Evolve!" class="controlButton">
                 </button>
                 <button ng-click="downloadProduct" id="download">
                     <img src="./images/download!.png" alt="Download!" class="controlButton">
-                </button> 
+                </button>
             </div>
             <!--stand in for leaderboard adsence add-->
             <canvas class="mainCanvas" width=728 height=90></canvas>
