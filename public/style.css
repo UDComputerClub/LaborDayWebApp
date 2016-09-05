@@ -1,5 +1,5 @@
 @font-face {
-font-family: 'EarlyGameBoy';
+font-family: 'Early GameBoy';
 // directory path must be on server
 src: url(directory_path/EarlyGameBoy.ttf);
 }
@@ -80,6 +80,6 @@ body {
 }
 
 .gameBoyFont {
-font-family: 'EarlyGameBoy', 'Arial';
+font-family: 'Early GameBoy', 'Arial';
 line-height:100%;
 }
