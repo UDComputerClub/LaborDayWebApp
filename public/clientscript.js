@@ -17,8 +17,9 @@ clientScript.controller('clientController', function($scope, Upload) {
 
     var animateOn = false;
     var startTime;
-    var canvasWidth = 300;
-    var canvasHeight = 300;
+    var canvasWidth = 320;
+    var canvasHeight = 288;
+    var spriteDim = 128;
     var image1 = new Image();
     var image2 = new Image();
 
@@ -120,7 +121,7 @@ clientScript.controller('clientController', function($scope, Upload) {
             var elapsed = new Date() - startTime;
             var isStage1 = (elapsed%(2*getMs(elapsed)))<getMs(elapsed);
 
-            ctx.drawImage(isStage1 ? image1 : image2,0,0,canvasWidth,canvasHeight);
+            ctx.drawImage(isStage1 ? image1 : image2,(canvasWidth-spriteDim)/2,(canvasHeight-spriteDim)/2,spriteDim,spriteDim);
 
         }
     };
