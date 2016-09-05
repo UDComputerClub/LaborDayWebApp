@@ -10,25 +10,24 @@ body {
 	text-align: center;
 }
 
+.header {
+	width: 98%;
+	max-height: 150px;
+}
+
 .appBody {
-	padding-top: 5%;
+	padding-top: 1.5%;
 	display: inline-block;
-	display: flex;
 }
 
 .sidemenu {
     display: table-cell;
-    width: 50%; /* depends on the number of columns */
-
-    padding: 1em;
-    float: left;
+	padding: 1em;
 }
-.mainContent {
-    display: table-cell;
-    width: 50%; /* depends on the number of columns */
 
-    padding: 1em;
-    float: right;
+.mainContent {
+    display: inline-block;
+	padding: 1em;
 }
 
 .canvas {
@@ -37,28 +36,34 @@ body {
 }
 
 .thumbnail {
-    width: 100px;
-    height: 80px;
+    width: 128px;
+    height: 128px;
     border: 1px solid black;
-	float: left;
-	background-color: white;
+	display: inline-block;
 }
 
-.cropButton {
-	float: left;
-	margin-top: 10px;
+.imageControls {
+	display: inline-block;
+}
+
+.imageInput {
+	padding-bottom: 5px;
 }
 
 .controlButton {
+	float: right;
+}
+
+.controlButtonImage {
     height: 30px;
 }
 
 .separateStagePannels {
-	padding-top: 20px
+	padding-bottom: 20px
 }
 
 .styleSelector {
-	padding-bottom: 15px;
+	height: 30px;
 }
 
 .right {
