@@ -6,16 +6,28 @@ clientScript.controller('clientController', function($scope, Upload) {
         {image:null},
         {image:null}
     ];
+
+    // TODO Each style should have its own rendering function
+    $scope.evolveStyles = [
+        {name: 'Gold/Silver/Crystal'},
+        {name: 'Ruby/Sapphire/Emerald'}
+    ];
+
+    $scope.evolutionStyle = $scope.evolveStyles[0];
+
 	var animateOn = false;
 	var startTime;
-	var getMs = function(time){
-		return 1000/(1000 * (time + 1));
-	};
 	var canvasWidth = 300;
 	var canvasHeight = 300;
 	var image1 = new Image();
 	var image2 = new Image();
-    
+
+    // Gets the number of milliseconds for which to display each image when
+    // oscillating between images in certain evolution styles.
+    var getMs = function(time){
+        return 1000/(1000 * (time + 1));
+    };
+
     // code from danial
     // http://stackoverflow.com/questions/13963022/angularjs-how-to-implement-a-simple-file-upload-with-multipart-form
     
@@ -23,7 +35,8 @@ clientScript.controller('clientController', function($scope, Upload) {
     $scope.onFileSelect = function(file) {
         console.log("here");
         $scope.stage1Image = getAsDataURL(file);
-    }
+    };
+
     $scope.selectStage = function(files,stage) {//, stage) {
         console.log("selectStage");
         $scope.stageImage[stage] = getAsDataURL(file);
@@ -68,21 +81,9 @@ clientScript.controller('clientController', function($scope, Upload) {
 	  var isStage1 = (elapsed%(2*getMs(elapsed)))<getMs(elapsed);
 
 	  ctx.drawImage(isStage1 ? image1 : image2,0,0,canvasWidth,canvasHeight);
+	}
 	};
-	};
-
     
-    /*
-    // show the image uploaded 
-    $scope.imageShown = false;
-    $scope.showImage = function () {
-        //find image, if it exists
-        if ( exists) {
-            $scope.imageShown = true;
-        }
-        $scope.imageShown = true;
-    };
-    */
 })
 .directive('ldwRender', function() {
     return {
