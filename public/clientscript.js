@@ -1,11 +1,23 @@
 var clientScript = angular.module('clientScript', ['ngFileUpload']);
 
 clientScript.controller('clientController', function($scope, Upload) {
+
+    //preload the text frame image
+    //TODO upload other generation frames also
+    var imgFrameLoaded = false;
+    var imgFrame = new Image();
+    imgFrame.onload = function(){
+        imgFrameLoaded = true; 
+    };
+    imgFrame.src = 'images/origclassicpokemonframe.PNG';
+    
     // Staged Images - eventually stores the image data
     $scope.thumbnailSide = 64;
     $scope.stages = [
-        {image:null, imageElem: new Image(), showLabel: true, name: "POKEMON"},
-        {image:null, imageElem: new Image(), showLabel: true, name: "POKEMON"}
+        {image:null, imageElem: new Image(), fabricImage: null, name: "POKEMON 1",
+            drawing: false, number: 1, showLabel: true},
+        {image:null, imageElem: new Image(), fabricImage: null, name: "POKEMON 2",
+            drawing: false, number: 2, showLabel: true}
     ];
 
     function renderGen1(ctx) {
@@ -16,19 +28,38 @@ clientScript.controller('clientController', function($scope, Upload) {
         var elapsed = new Date() - startTime;
         var isStage1;
 
-		elapsed = elapsed%12000;
+        if(elapsed > 12852) {
+            startTime = new Date();
+            document.getElementById("audio").currentTime = 0;
+            document.getElementById("audio").play()
+        };
 
-		if(elapsed < 3000) {
+        if(imgFrameLoaded){
+            ctx.drawImage(imgFrame, 0, canvasHeight-frameHeight, canvasWidth,frameHeight); //look, the magic numbers work. Magic works. I'm a wizard, Harry.
+        } else {
+            console.log("failed to load text frame")
+        }
+        var part1 = 1800;
+        var part2 = part1+50;
+        var part3 = part2+800;
+        var part4 = part3+80;
+        var part5 = part4+500;
+        var part6 = 7300;
+        var padBottom = 15;
+        var padLeft = 15;
+        var charLimit = 10;
+
+		if(elapsed < part1) {
 			isStage1 = 0;
-		} else if(elapsed < 3050) {
+		} else if(elapsed < part2) {
 			isStage1 = 1;
-		} else if(elapsed < 4000) {
+		} else if(elapsed < part3) {
 			isStage1 = 0;
-		} else if(elapsed < 4080) {
+		} else if(elapsed < part4) {
 			isStage1 = 1;
-		} else if(elapsed < 5000) {
+		} else if(elapsed < part5) {
 			isStage1 = 0;
-		} else if(elapsed < 8000) {
+		} else if(elapsed < part6) {
 			isStage1 = elapsed%2;
 		} else {
 			isStage1 = 1;
@@ -37,39 +68,19 @@ clientScript.controller('clientController', function($scope, Upload) {
         var stage = isStage1 ? $scope.stages[1] : $scope.stages[0];
         
         if(elapsed < 10000){
-            if($scope.stages[0].name.length < 10){
-                ctx.font = "16px Font";
-                ctx.fillText("What? " + $scope.stages[0].name, 10, canvasHeight-44); //20 padding plus 24 line height
-                ctx.fillText("is evolving!", 10, canvasHeight-10); //10 padding left and below
-            }
-            else{
-                ctx.font = "10px Font";
-                ctx.fillText("What? " + $scope.stages[0].name, 10, canvasHeight-44); //20 padding plus 24 line height
-                ctx.fillText("is evolving!", 10, canvasHeight-10); //10 padding left and below
-            }
+            ctx.font = "16px Font";
+            ctx.fillText("What? " + $scope.stages[0].name, padLeft, canvasHeight-44); //20 padding plus 24 line height
+            ctx.fillText("is evolving!", padLeft, canvasHeight-padBottom); 
         }
         else{
-            if($scope.stages[0].name.length < 10 || $scope.stages[1].name.length < 10){
-                ctx.font = "16px Font";
-                ctx.fillText($scope.stages[0].name + " evolved", 10, canvasHeight-44); //20 padding plus 24 line height
-                ctx.fillText("into " + $scope.stages[1].name + "!", 10, canvasHeight-10); //10 padding left and below
-            }
-            else{
-                ctx.font = "10px Font";
-                ctx.fillText($scope.stages[0].name + " evolved", 10, canvasHeight-44); //20 padding plus 24 line height
-                ctx.fillText("into " + $scope.stages[1].name + "!", 10, canvasHeight-10); //10 padding left and below
-            }
+            ctx.font = "16px Font";
+            ctx.fillText($scope.stages[0].name + " evolved", padLeft, canvasHeight-44); //20 padding plus 24 line height
+            ctx.fillText("into " + $scope.stages[1].name + "!", padLeft, canvasHeight-padLeft); 
         }
 
-        //this block draws the frame and the text inside
-        var imgFrame = new Image();
-        imgFrame.onload = function(){
-            ctx.drawImage(imgFrame, 0, canvasHeight-80, canvasWidth,80); //look, the magic numbers work. Magic works. I'm a wizard, Harry. 
-        };
-        imgFrame.src = 'images/origclassicpokemonframe.PNG';
 
         ctx.drawImage(stage.imageElem, (canvasWidth-spriteDim)/2,
-            (canvasHeight-spriteDim)/2, spriteDim, spriteDim);
+            (canvasHeight-spriteDim-frameHeight)/2, spriteDim, spriteDim);
     }
 
     // TODO Each style should have its own rendering function
@@ -86,6 +97,7 @@ clientScript.controller('clientController', function($scope, Upload) {
     var canvasWidth = 320;
     var canvasHeight = 288;
     var spriteDim = 128;
+    var frameHeight = 80;
 
     // Gets the number of milliseconds for which to display each image when
     // oscillating between images in certain evolution styles.
@@ -107,13 +119,14 @@ clientScript.controller('clientController', function($scope, Upload) {
         Upload.base64DataUrl(stage.image)
             .then(function (url) {
                 stage.imageElem.src = url;
+            })
+            .then(function() {
+                stage.fabricImage = new fabric.Image(stage.imageElem)
+            })
+            .then(function() {
+                stage.drawing = true;
             });
 		stage.showLabel = false;
-        //$scope.stageImage[stage] = getAsDataURL(file);
-        //$scope.stageShown[stage] = true;
-        //var fd = new FormData();
-        //Take the first selected file
-        //fd.append("stage"+stage.toString(), files[0]);*/
     };
 
     // crops a selected file based on its preview
@@ -128,18 +141,60 @@ clientScript.controller('clientController', function($scope, Upload) {
     };
 
     $scope.initAnimation = function(){
-        startTime = new Date();
-        animateOn = true;
+        if(($scope.stages[0].image != null) &&
+				($scope.stages[1].image != null)) {
+        	startTime = new Date() - 15000;
+        	animateOn = true;
+		} else {
+			var ctx = document.getElementById("theCanvas").getContext("2d");
+			ctx.clearRect(0,0,canvasWidth,canvasHeight); // clear canvas
+			ctx.font = "16px Font";
+            ctx.fillText("PLEASE UPLOAD", 10,
+					canvasHeight/4);
+            ctx.fillText("BOTH STAGES.", 10,
+					canvasHeight/2);
+        }
     };
 
     $scope.drawThumbnail = function(stage, ctx) {
-        ctx.drawImage(stage.imageElem, 0, 0, spriteDim, spriteDim);
+        // sorry if this is bad angular, Brian
+        if (stage.drawing) {
+            stage.drawing = false;
+
+            var fabThumbnail = new fabric.Canvas("thumb"+stage.number, {
+                isDrawingMode: true
+            });
+
+            var imgInstance = new fabric.Image(stage.imageElem, {
+                left: 0,
+                top: 0,
+            });
+            imgInstance.width = spriteDim;
+            imgInstance.height = spriteDim;
+
+            fabThumbnail.add(imgInstance);
+
+            fabThumbnail.freeDrawingBrush.color = "black";
+            fabThumbnail.freeDrawingBrush.width = 2;
+
+            fabThumbnail.on('path:created', function(options) {
+                var path = options.path;
+                fabThumbnail.isDrawingMode = false;
+                fabThumbnail.remove(imgInstance);
+                fabThumbnail.remove(path);
+                fabThumbnail.clipTo = function(ctx) {
+                    path.render(ctx);
+                };
+                fabThumbnail.add(imgInstance);
+                stage.imageElem.src = fabThumbnail.toDataURL();
+            });
+        }
     };
 
 
     $scope.animate = function(ctx) {
         if(animateOn){
-            //ctx.clearRect(0,0,canvasWidth,canvasHeight); // clear canvas
+            ctx.clearRect(0,0,canvasWidth,canvasHeight); // clear canvas
             $scope.evolutionStyle.render(ctx);
 
         }

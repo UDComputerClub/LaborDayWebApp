@@ -19,11 +19,11 @@ body {
 
 .header {
 	width: 98%;
-	max-height: 150px;
+	max-width: 1200px;
 }
 
 .appBody {
-	padding-top: 1.5%;
+	padding-top: 1.8%;
 	display: inline-block;
 }
 
@@ -48,7 +48,6 @@ body {
 }
 
 .thumbnail {
-    border: 1px solid black;
 	display: inline-block;
 }
 

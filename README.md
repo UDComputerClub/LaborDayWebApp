@@ -1,4 +1,7 @@
 # LaborDayWebApp
+
+The website is now live!! go to https://evolveyoself.com/ to try it out
+
 This is the Labor Day weekend web app project. Our mission: to boldly create a
 web app that no man has created before (hopefully). This web app allows the user
 to upload "before" and "after" images and create a Pokémon evolution animation

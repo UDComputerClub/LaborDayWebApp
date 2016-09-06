@@ -15,12 +15,16 @@
         <script src="ng-file-upload.js"></script>
         <script src="ng-file-upload-shim.js"></script>
         <script src="upload.js"></script>
+        <script src="fabric.min.js"></script>
         <script src="clientscript.js"></script>
 
     </head>
     <body ng-controller="clientController">
-        <img src="./images/evolve%20yoself.png" alt="Evolve Yo'self"         
+        <a href="http://www.evolveyoself.com/index.html">
+			<img src="./images/evolve%20yoself.png"
+					alt="Evolve Yo'self"         
                     class="header" />
+		</a>
         <form class="appBody" id="interface" method="POST"
               enctype="multipart/form-data" action="/rest/video">
 
@@ -37,23 +41,21 @@
                         <img src="./images/upload%20stage%20{{$index+1}}.png"
                             alt="Upload Stage {{$index}}" width=200 />
                     </label>
-
-
                     <!--a canvas object to display the "before" image on the
                         left and buttons to upload and crop the image on the
                         right-->
-                    <canvas class="thumbnail" width="128px" height="128px"
+                    <canvas id="thumb{{$index+1}}" class="thumbnail" width="128px" height="128px"
                         ldw-render="drawThumbnail(stage, $ctx)"
                         ng-hide="stage.showLabel"></canvas>
                     <br>
-            		<p ng-hide="stage.showLabel">Give your Pokémon a name:</p>
+
                     <input type="text" ng-model="stage.name" 
-                        ng-hide="stage.showLabel" />
+                        ng-hide="stage.showLabel" maxlength=10 />
                     <br>
-                    <button ng-click="cropStage($index)"
+                    <!--<button ng-click="cropStage($index)"
                             ng-hide="stage.showLabel">
                         <img src="./images/crop!.png" alt="Crop" height=30>
-                    </button>
+                    </button>-->
                 </div>
                 <!--stop repeating-->
             </div>
@@ -78,6 +80,7 @@
                             class="controlButtonImage">
                 </button>
             </div>
+
             <br>
             <!--stand in for leaderboard adsence add-->
             <canvas class="canvas" width="728" height="90" padding-top="10px"></canvas>
@@ -87,5 +90,7 @@
 	    <div hidden>
 		    <canvas id="hiddenCanvas" class="canvas" width="128" height="128"></canvas> 
 	    </div>
+        
+        <audio src="./sounds/pokeSound.mp3" id="audio" />
     </body>
 </html>
