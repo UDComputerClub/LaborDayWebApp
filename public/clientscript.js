@@ -4,8 +4,10 @@ clientScript.controller('clientController', function($scope, Upload) {
     // Staged Images - eventually stores the image data
     $scope.thumbnailSide = 64;
     $scope.stages = [
-        {image:null, imageElem: new Image(), drawing: false, number: 1, showLabel: true},
-        {image:null, imageElem: new Image(), drawing: false, number: 2, showLabel: true}
+        {image:null, imageElem: new Image(), fabricImage: null, 
+            drawing: false, number: 1, showLabel: true},
+        {image:null, imageElem: new Image(), fabricImage: null, 
+            drawing: false, number: 2, showLabel: true}
     ];
 
     function renderGen1(ctx) {
@@ -75,10 +77,15 @@ clientScript.controller('clientController', function($scope, Upload) {
     
     $scope.selectStage = function(stage) {
         console.log("selectStage");
-        stage.drawing = true;
         Upload.base64DataUrl(stage.image)
             .then(function (url) {
                 stage.imageElem.src = url;
+            })
+            .then(function() {
+                stage.fabricImage = new fabric.Image(stage.imageElem)
+            })
+            .then(function() {
+                stage.drawing = true;
             });
 		stage.showLabel = false;
     };
@@ -111,13 +118,14 @@ clientScript.controller('clientController', function($scope, Upload) {
             var imgInstance = new fabric.Image(stage.imageElem, {
                 left: 0,
                 top: 0,
-                //bottom: spriteDim;
-                //right: spriteDim;
             });
+            imgInstance.width = spriteDim;
+            imgInstance.height = spriteDim;
+
             fabThumbnail.add(imgInstance);
 
             fabThumbnail.freeDrawingBrush.color = "black";
-            fabThumbnail.freeDrawingBrush.width = 3;
+            fabThumbnail.freeDrawingBrush.width = 2;
 
             fabThumbnail.on('path:created', function(options) {
                 var path = options.path;
@@ -127,10 +135,14 @@ clientScript.controller('clientController', function($scope, Upload) {
                 fabThumbnail.clipTo = function(ctx) {
                     path.render(ctx);
                 };
-                fabThumbnail.add(imgInstance);
+                fabThumbnail.add(imgInstance._element);
+                //stage.imageElem.src = imgInstance._element;
+                /*Upload.base64DataUrl(imgInstance)
+                .then(function (url) {
+                    stage.imageElem.src = url;
+                });*/
             });
         }
-        
     };
 
 	//helper func for grayscaling the images
