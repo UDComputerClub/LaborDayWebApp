@@ -118,13 +118,13 @@ clientScript.controller('clientController', function($scope, Upload) {
         console.log("selectStage");
         Upload.base64DataUrl(stage.image)
             .then(function (url) {
+				stage.imageElem.onload = function() {
+					stage.drawing = true;
+				};
                 stage.imageElem.src = url;
             })
             .then(function() {
                 stage.fabricImage = new fabric.Image(stage.imageElem)
-            })
-            .then(function() {
-                stage.drawing = true;
             });
 		stage.showLabel = false;
     };
