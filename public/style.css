@@ -1,6 +1,6 @@
 @font-face {
-  font-family: 'Early GameBoy';
-  src: url('./Early GameBoy.ttf') format('truetype');
+  font-family: 'Font';
+  src: url('./Gameboy Color.ttf') format('truetype');
   font-weight: normal;
   font-style: normal;
 }
@@ -91,6 +91,6 @@ body {
 }
 
 .gameBoyFont {
-  font-family: 'Early GameBoy', 'Arial';
+  font-family: 'Early GameBoy';
   line-height:100%;
 }

@@ -4,9 +4,9 @@ clientScript.controller('clientController', function($scope, Upload) {
     // Staged Images - eventually stores the image data
     $scope.thumbnailSide = 64;
     $scope.stages = [
-        {image:null, imageElem: new Image(), fabricImage: null, 
+        {image:null, imageElem: new Image(), fabricImage: null, name: "POKEMON",
             drawing: false, number: 1, showLabel: true},
-        {image:null, imageElem: new Image(), fabricImage: null, 
+        {image:null, imageElem: new Image(), fabricImage: null, name: "POKEMON",
             drawing: false, number: 2, showLabel: true}
     ];
 
@@ -37,10 +37,44 @@ clientScript.controller('clientController', function($scope, Upload) {
 		}
 
         var stage = isStage1 ? $scope.stages[1] : $scope.stages[0];
+        
+        if(elapsed < 10000){
+            if($scope.stages[0].name.length < 10){
+                ctx.font = "16px Font";
+                ctx.fillText("What? " + $scope.stages[0].name, 10, canvasHeight-44); //20 padding plus 24 line height
+                ctx.fillText("is evolving!", 10, canvasHeight-10); //10 padding left and below
+            }
+            /*else{
+                ctx.font = "10px Font";
+                ctx.fillText("What? " + $scope.stages[0].name, 10, canvasHeight-44); //20 padding plus 24 line height
+                ctx.fillText("is evolving!", 10, canvasHeight-10); //10 padding left and below
+            }*/
+        }
+        else{
+            if($scope.stages[0].name.length < 10){
+                ctx.font = "16px Font";
+                ctx.fillText($scope.stages[0].name + " evolved", 10, canvasHeight-44); //20 padding plus 24 line height
+            }
+            /*else{
+                ctx.font = "10px Font";
+                ctx.fillText($scope.stages[0].name + " evolved", 10, canvasHeight-44); //20 padding plus 24 line height
+            }*/
+            if($scope.stages[1].name.length < 10){
+                ctx.font = "16px Font";
+                ctx.fillText("into " + $scope.stages[1].name + "!", 10, canvasHeight-10); //10 padding left and below
+            }
+            /*else{
+                ctx.font = "24px Font";
+                ctx.fillText("into " + $scope.stages[1].name + "!", 10, canvasHeight-10); //10 padding left and below
+            }*/
+        }
 
-        ctx.font = "24px Early GameBoy";
-        ctx.fillText("What? _____", 10, canvasHeight-44); //20 padding plus 24 line height
-        ctx.fillText("is evolving!", 10, canvasHeight-10); //10 padding left and below
+        //this block draws the frame and the text inside
+        var imgFrame = new Image();
+        imgFrame.onload = function(){
+            ctx.drawImage(imgFrame, 0, canvasHeight-80, canvasWidth,80); //look, the magic numbers work. Magic works. I'm a wizard, Harry. 
+        };
+        imgFrame.src = 'images/origclassicpokemonframe.PNG';
 
         ctx.drawImage(stage.imageElem, (canvasWidth-spriteDim)/2,
             (canvasHeight-spriteDim)/2, spriteDim, spriteDim);
@@ -48,8 +82,9 @@ clientScript.controller('clientController', function($scope, Upload) {
 
     // TODO Each style should have its own rendering function
     $scope.evolveStyles = [
-        {name: 'Gold/Silver/Crystal', render: renderGen1},
-        {name: 'Ruby/Sapphire/Emerald', render: renderGen1}
+        {name: 'Red/Blue/Green/Yellow', render: renderGen1}//,
+        //{name: 'Gold/Silver/Crystal', render: renderGen1},
+        //{name: 'Ruby/Sapphire/Emerald', render: renderGen1}
     ];
 
     $scope.evolutionStyle = $scope.evolveStyles[0];
@@ -145,50 +180,10 @@ clientScript.controller('clientController', function($scope, Upload) {
         }
     };
 
-	//helper func for grayscaling the images
-	$scope.grayscale = function(){
-	  var cnv = getElementbyId("hiddenCanvas");
-	  var ctx = cnv.getContext('2d');
-	  var img1Width = image1.width;
-	  var img1Height = image1.height;
-	  var img2Width = image2.width;
-	  var img2Height = image2.height;
-
-	  ctx.drawImage(image1, 0, 0);
-	  var imgPixels = ctx.getImageData(0,0,img1Width,img1Height);
-	  for(var y = 0; y < imgPixels.height; y++){
-	     for(var x = 0; x < imgPixels.width; x++){
-	          var i = (y * 4) * imgPixels.width + x * 4;
-	          var avg = (imgPixels.data[i] + imgPixels.data[i + 1] + imgPixels.data[i + 2]) / 3;
-	          imgPixels.data[i] = avg;
-	          imgPixels.data[i + 1] = avg;
-	          imgPixels.data[i + 2] = avg;
-	     }
-	  }
-	  var background = p.color(0,0,0,0);
-
-	  //for (var i = 0; i < 
-
-
-	  ctx.clearRect(128,128,0,0); // clear canvas
-
-	  ctx.drawImage(image2, 0, 0);
-	  var imgPixels = ctx.getImageData(0,0,img2Width,img2Height);
-	  for(var y = 0; y < imgPixels.height; y++){
-	     for(var x = 0; x < imgPixels.width; x++){
-	          var i = (y * 4) * imgPixels.width + x * 4;
-	          var avg = (imgPixels.data[i] + imgPixels.data[i + 1] + imgPixels.data[i + 2]) / 3;
-	          imgPixels.data[i] = avg;
-	          imgPixels.data[i + 1] = avg;
-	          imgPixels.data[i + 2] = avg;
-	     }
-	  }
-
-	};
 
     $scope.animate = function(ctx) {
         if(animateOn){
-            ctx.clearRect(0,0,canvasWidth,canvasHeight); // clear canvas
+            //ctx.clearRect(0,0,canvasWidth,canvasHeight); // clear canvas
             $scope.evolutionStyle.render(ctx);
 
         }
