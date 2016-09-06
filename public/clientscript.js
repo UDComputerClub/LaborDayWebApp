@@ -157,7 +157,7 @@ clientScript.controller('clientController', function($scope, Upload) {
 
     $scope.animate = function(ctx) {
         if(animateOn){
-            //ctx.clearRect(0,0,canvasWidth,canvasHeight); // clear canvas
+            ctx.clearRect(0,0,canvasWidth,canvasHeight); // clear canvas
             $scope.evolutionStyle.render(ctx);
 
         }
