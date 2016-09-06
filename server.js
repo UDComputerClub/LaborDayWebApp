@@ -3,27 +3,15 @@
 // imports
 const express = require('express');
 const path = require('path');
-const fs = require('fs-extra');
-
-const https = require('https');
-const options = {
-    key: fs.readFileSync('key'), // Replace with real key
-    cert: fs.readFileSync('cert') // Replace with real cert
-};
 
 const app = express();
 
 const formidable = require('formidable');
 const util = require('util');
+const fs = require('fs-extra');
 const qt = require('quickthumb');
 
-//app.use(express.static(path.join(__dirname, 'public')));
-
-app.get('/', (req, res) => {
-    res.writeHead(200, {'content-type': 'text/html'});
-    res.write('<html><body><p>You found the node server!</p></body></html>');
-    res.end();
-});
+app.use(express.static(path.join(__dirname, 'public')));
 
 app.post('/rest/video', (req, res) => {
     var form = new formidable.IncomingForm();
@@ -53,4 +41,5 @@ app.post('/rest/video', (req, res) => {
     // the request body. See http://expressjs.com/en/api.html#req.body
 });
 
-https.createServer(options, app).listen(3000);
+
+app.listen(3000);
