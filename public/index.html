@@ -45,14 +45,14 @@
                         ldw-render="drawThumbnail(stage, $ctx)"
                         ng-hide="stage.showLabel"></canvas>
                     <br>
-            		<p ng-hide="stage.showLabel">Give your Pokémon a name:</p>
+
                     <input type="text" ng-model="stage.name" 
                         ng-hide="stage.showLabel" />
                     <br>
-                    <button ng-click="cropStage($index)"
+                    <!--<button ng-click="cropStage($index)"
                             ng-hide="stage.showLabel">
                         <img src="./images/crop!.png" alt="Crop" height=30>
-                    </button>
+                    </button>-->
                 </div>
                 <!--stop repeating-->
             </div>
@@ -79,6 +79,7 @@
                 </button>
             </div>
 
+            <br>
             <!--stand in for leaderboard adsence add-->
             <canvas class="canvas" width="728" height="90" padding-top="10px"></canvas>
         </div>
@@ -87,5 +88,7 @@
 	    <div hidden>
 		    <canvas id="hiddenCanvas" class="canvas" width="128" height="128"></canvas> 
 	    </div>
+        
+        <audio src="./sounds/pokeSound.mp3" id="audio" />
     </body>
 </html>
