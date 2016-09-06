@@ -67,14 +67,22 @@ clientScript.controller('clientController', function($scope, Upload) {
             }*/
         }
 
+        //this block draws the frame and the text inside
+        var imgFrame = new Image();
+        imgFrame.onload = function(){
+            ctx.drawImage(imgFrame, 0, canvasHeight-80, canvasWidth,80); //look, the magic numbers work. Magic works. I'm a wizard, Harry. 
+        };
+        imgFrame.src = 'images/origclassicpokemonframe.PNG';
+
         ctx.drawImage(stage.imageElem, (canvasWidth-spriteDim)/2,
             (canvasHeight-spriteDim)/2, spriteDim, spriteDim);
     }
 
     // TODO Each style should have its own rendering function
     $scope.evolveStyles = [
-        {name: 'Gold/Silver/Crystal', render: renderGen1},
-        {name: 'Ruby/Sapphire/Emerald', render: renderGen1}
+        {name: 'Red/Blue/Green/Yellow', render: renderGen1}//,
+        //{name: 'Gold/Silver/Crystal', render: renderGen1},
+        //{name: 'Ruby/Sapphire/Emerald', render: renderGen1}
     ];
 
     $scope.evolutionStyle = $scope.evolveStyles[0];
@@ -134,50 +142,10 @@ clientScript.controller('clientController', function($scope, Upload) {
         ctx.drawImage(stage.imageElem, 0, 0, spriteDim, spriteDim);
     };
 
-	//helper func for grayscaling the images
-	$scope.grayscale = function(){
-	  var cnv = getElementbyId("hiddenCanvas");
-	  var ctx = cnv.getContext('2d');
-	  var img1Width = image1.width;
-	  var img1Height = image1.height;
-	  var img2Width = image2.width;
-	  var img2Height = image2.height;
-
-	  ctx.drawImage(image1, 0, 0);
-	  var imgPixels = ctx.getImageData(0,0,img1Width,img1Height);
-	  for(var y = 0; y < imgPixels.height; y++){
-	     for(var x = 0; x < imgPixels.width; x++){
-	          var i = (y * 4) * imgPixels.width + x * 4;
-	          var avg = (imgPixels.data[i] + imgPixels.data[i + 1] + imgPixels.data[i + 2]) / 3;
-	          imgPixels.data[i] = avg;
-	          imgPixels.data[i + 1] = avg;
-	          imgPixels.data[i + 2] = avg;
-	     }
-	  }
-	  var background = p.color(0,0,0,0);
-
-	  //for (var i = 0; i < 
-
-
-	  ctx.clearRect(128,128,0,0); // clear canvas
-
-	  ctx.drawImage(image2, 0, 0);
-	  var imgPixels = ctx.getImageData(0,0,img2Width,img2Height);
-	  for(var y = 0; y < imgPixels.height; y++){
-	     for(var x = 0; x < imgPixels.width; x++){
-	          var i = (y * 4) * imgPixels.width + x * 4;
-	          var avg = (imgPixels.data[i] + imgPixels.data[i + 1] + imgPixels.data[i + 2]) / 3;
-	          imgPixels.data[i] = avg;
-	          imgPixels.data[i + 1] = avg;
-	          imgPixels.data[i + 2] = avg;
-	     }
-	  }
-
-	};
 
     $scope.animate = function(ctx) {
         if(animateOn){
-            ctx.clearRect(0,0,canvasWidth,canvasHeight); // clear canvas
+            //ctx.clearRect(0,0,canvasWidth,canvasHeight); // clear canvas
             $scope.evolutionStyle.render(ctx);
 
         }
