@@ -14,10 +14,10 @@ clientScript.controller('clientController', function($scope, Upload) {
     // Staged Images - eventually stores the image data
     $scope.thumbnailSide = 64;
     $scope.stages = [
-        {image:null, imageElem: new Image(), showLabel: true,
-				name: "POKEMON 1"},
-        {image:null, imageElem: new Image(), showLabel: true,
-				name: "POKEMON 2"}
+        {image:null, imageElem: new Image(), fabricImage: null, name: "POKEMON 1",
+            drawing: false, number: 1, showLabel: true},
+        {image:null, imageElem: new Image(), fabricImage: null, name: "POKEMON 2",
+            drawing: false, number: 2, showLabel: true}
     ];
 
     function renderGen1(ctx) {
@@ -68,29 +68,16 @@ clientScript.controller('clientController', function($scope, Upload) {
         var stage = isStage1 ? $scope.stages[1] : $scope.stages[0];
         
         if(elapsed < 10000){
-            if($scope.stages[0].name.length < charLimit){
-                ctx.font = "16px Font";
-                ctx.fillText("What? " + $scope.stages[0].name, padLeft, canvasHeight-44); //20 padding plus 24 line height
-                ctx.fillText("is evolving!", padLeft, canvasHeight-padBottom); 
-            }
-            else{
-                ctx.font = "10px Font";
-                ctx.fillText("What? " + $scope.stages[0].name, padLeft, canvasHeight-44); //20 padding plus 24 line height
-                ctx.fillText("is evolving!", padLeft, canvasHeight-padBottom); 
-            }
+            ctx.font = "16px Font";
+            ctx.fillText("What? " + $scope.stages[0].name, padLeft, canvasHeight-44); //20 padding plus 24 line height
+            ctx.fillText("is evolving!", padLeft, canvasHeight-padBottom); 
         }
         else{
-            if($scope.stages[0].name.length < 10 || $scope.stages[1].name.length < charLimit){
-                ctx.font = "16px Font";
-                ctx.fillText($scope.stages[0].name + " evolved", padLeft, canvasHeight-44); //20 padding plus 24 line height
-                ctx.fillText("into " + $scope.stages[1].name + "!", padLeft, canvasHeight-padBottom); 
-            }
-            else{
-                ctx.font = "10px Font";
-                ctx.fillText($scope.stages[0].name + " evolved", padLeft, canvasHeight-44); //20 padding plus 24 line height
-                ctx.fillText("into " + $scope.stages[1].name + "!", padLeft, canvasHeight-padBottom); 
-            }
+            ctx.font = "16px Font";
+            ctx.fillText($scope.stages[0].name + " evolved", padLeft, canvasHeight-44); //20 padding plus 24 line height
+            ctx.fillText("into " + $scope.stages[1].name + "!", padLeft, canvasHeight-padLeft); 
         }
+
 
         ctx.drawImage(stage.imageElem, (canvasWidth-spriteDim)/2,
             (canvasHeight-spriteDim-frameHeight)/2, spriteDim, spriteDim);
@@ -154,17 +141,8 @@ clientScript.controller('clientController', function($scope, Upload) {
     };
 
     $scope.initAnimation = function(){
-		if(($scope.stages[0].image != null) &&
-				($scope.stages[1].image != null)) {
-        	startTime = new Date() - 15000;
-        	animateOn = true;
-		} else {
-			var ctx = document.getElementById("theCanvas").getContext("2d");
-			ctx.clearRect(0,0,canvasWidth,canvasHeight); // clear canvas
-			ctx.font = "16px Font";
-            ctx.fillText("PLEASE UPLOAD BOTH STAGES.", 10,
-					canvasHeight/2-16);
-		}
+        startTime = new Date() - 15000;
+        animateOn = true;
     };
 
     $scope.drawThumbnail = function(stage, ctx) {
