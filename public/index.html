@@ -20,11 +20,11 @@
 
     </head>
     <body ng-controller="clientController">
-        <a href="index.html">
-            <img src="./images/evolve%20yoself.png" alt="Evolve Yo'self"         
-                    class="header" href="index.html"/>
-        </a>
-
+        <a href="http://www.evolveyoself.com/index.html">
+			<img src="./images/evolve%20yoself.png"
+					alt="Evolve Yo'self"         
+                    class="header" />
+		</a>
         <div class="appBody" id="interface">
 
             <div class="sidemenu">
@@ -49,7 +49,7 @@
                     <br>
 
                     <input type="text" ng-model="stage.name" 
-                        ng-hide="stage.showLabel" />
+                        ng-hide="stage.showLabel" maxlength=10 />
                     <br>
                     <!--<button ng-click="cropStage($index)"
                             ng-hide="stage.showLabel">
