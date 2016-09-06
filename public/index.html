@@ -15,11 +15,12 @@
         <script src="ng-file-upload.js"></script>
         <script src="ng-file-upload-shim.js"></script>
         <script src="upload.js"></script>
+        <script src="fabric.min.js"></script>
         <script src="clientscript.js"></script>
 
     </head>
     <body ng-controller="clientController">
-        <a href="http://evolveyoself.com/index.html">
+        <a href="http://www.evolveyoself.com/index.html">
 			<img src="./images/evolve%20yoself.png"
 					alt="Evolve Yo'self"         
                     class="header" />
@@ -39,12 +40,10 @@
                         <img src="./images/upload%20stage%20{{$index+1}}.png"
                             alt="Upload Stage {{$index}}" width=200 />
                     </label>
-
-
                     <!--a canvas object to display the "before" image on the
                         left and buttons to upload and crop the image on the
                         right-->
-                    <canvas class="thumbnail" width="128px" height="128px"
+                    <canvas id="thumb{{$index+1}}" class="thumbnail" width="128px" height="128px"
                         ldw-render="drawThumbnail(stage, $ctx)"
                         ng-hide="stage.showLabel" id="thumb{{$index+1}}">
 					</canvas>
