@@ -1,3 +1,10 @@
+@font-face {
+  font-family: 'Early GameBoy';
+  src: url('./Early GameBoy.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
 html { 
   background: url(./images/background.png) no-repeat center center fixed; 
   -webkit-background-size: cover;
@@ -10,25 +17,29 @@ body {
 	text-align: center;
 }
 
+.header {
+	width: 98%;
+	max-height: 150px;
+}
+
 .appBody {
-	padding-top: 5%;
+	padding-top: 1.5%;
 	display: inline-block;
-	display: flex;
 }
 
 .sidemenu {
-    display: table-cell;
-    width: 50%; /* depends on the number of columns */
-
-    padding: 1em;
-    float: left;
+    display: inline-block;
+	padding: 1em;
+	vertical-align:top;
 }
-.mainContent {
-    display: table-cell;
-    width: 50%; /* depends on the number of columns */
 
-    padding: 1em;
-    float: right;
+.imageInput {
+	display: none;
+}
+
+.mainContent {
+    display: inline-block;
+	padding: 1em;
 }
 
 .canvas {
@@ -38,25 +49,33 @@ body {
 
 .thumbnail {
     border: 1px solid black;
-	float: left;
-	background-color: white;
+	display: inline-block;
 }
 
-.cropButton {
-	float: left;
-	margin-top: 10px;
+.imageControls {
+	display: inline-block;
+}
+
+.imageInput {
+	padding-bottom: 5px;
 }
 
 .controlButton {
-    height: 30px;
+	float: right;
+	padding-left: 5px;
+	padding-right: 5px;
 }
 
-.separateStagePannels {
-	padding-top: 20px
+.controlButtonImage {
+    height: 20px;
+}
+
+.separateStagePanels {
+	padding-bottom: 20px
 }
 
 .styleSelector {
-	padding-bottom: 15px;
+	height: 30px;
 }
 
 .right {
@@ -69,4 +88,9 @@ body {
 
 .bordered {
 	border: 1px solid block;
+}
+
+.gameBoyFont {
+  font-family: 'Early GameBoy', 'Arial';
+  line-height:100%;
 }

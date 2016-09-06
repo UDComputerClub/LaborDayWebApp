@@ -4,8 +4,8 @@ clientScript.controller('clientController', function($scope, Upload) {
     // Staged Images - eventually stores the image data
     $scope.thumbnailSide = 64;
     $scope.stages = [
-        {image:null, imageElem: new Image()},
-        {image:null, imageElem: new Image()}
+        {image:null, imageElem: new Image(), showLabel: true, name: "POKEMON"},
+        {image:null, imageElem: new Image(), showLabel: true, name: "POKEMON"}
     ];
 
     function renderGen1(ctx) {
@@ -14,10 +14,58 @@ clientScript.controller('clientController', function($scope, Upload) {
         ctx.save();
 
         var elapsed = new Date() - startTime;
-        var ms = getMs(elapsed);
-        var isStage1 = elapsed % (2*ms) < ms;
+        var isStage1;
 
-        var stage = isStage1 ? $scope.stages[0] : $scope.stages[1];
+		elapsed = elapsed%12000;
+
+		if(elapsed < 3000) {
+			isStage1 = 0;
+		} else if(elapsed < 3050) {
+			isStage1 = 1;
+		} else if(elapsed < 4000) {
+			isStage1 = 0;
+		} else if(elapsed < 4080) {
+			isStage1 = 1;
+		} else if(elapsed < 5000) {
+			isStage1 = 0;
+		} else if(elapsed < 8000) {
+			isStage1 = elapsed%2;
+		} else {
+			isStage1 = 1;
+		}
+
+        var stage = isStage1 ? $scope.stages[1] : $scope.stages[0];
+        
+        if(elapsed < 10000){
+            if($scope.stages[0].name.length < 8){
+                ctx.font = "24px Early GameBoy";
+                ctx.fillText("What? " + $scope.stages[0].name, 10, canvasHeight-44); //20 padding plus 24 line height
+                ctx.fillText("is evolving!", 10, canvasHeight-10); //10 padding left and below
+            }
+            else{
+                ctx.font = "10px Early GameBoy";
+                ctx.fillText("What? " + $scope.stages[0].name, 10, canvasHeight-44); //20 padding plus 24 line height
+                ctx.fillText("is evolving!", 10, canvasHeight-10); //10 padding left and below
+            }
+        }
+        else{
+            if($scope.stages[0].name.length < 6){
+                ctx.font = "24px Early GameBoy";
+                ctx.fillText($scope.stages[0].name + " evolved", 10, canvasHeight-44); //20 padding plus 24 line height
+            }
+            else{
+                ctx.font = "10px Early GameBoy";
+                ctx.fillText($scope.stages[0].name + " evolved", 10, canvasHeight-44); //20 padding plus 24 line height
+            }
+            if($scope.stages[1].name.length < 9){
+                ctx.font = "24px Early GameBoy";
+                ctx.fillText("into " + $scope.stages[1].name + "!", 10, canvasHeight-10); //10 padding left and below
+            }
+            else{
+                ctx.font = "10px Early GameBoy";
+                ctx.fillText("into " + $scope.stages[1].name + "!", 10, canvasHeight-10); //10 padding left and below
+            }
+        }
 
         ctx.font = "24px Pokemon R/S";
         ctx.fillText("What? Your _____ is evolving!",30,30);
@@ -61,6 +109,7 @@ clientScript.controller('clientController', function($scope, Upload) {
             .then(function (url) {
                 stage.imageElem.src = url;
             });
+		stage.showLabel = false;
         //$scope.stageImage[stage] = getAsDataURL(file);
         //$scope.stageShown[stage] = true;
         //var fd = new FormData();
@@ -92,6 +141,7 @@ clientScript.controller('clientController', function($scope, Upload) {
         if(animateOn){
             ctx.clearRect(0,0,canvasWidth,canvasHeight); // clear canvas
             $scope.evolutionStyle.render(ctx);
+
         }
 
     // BEGIN GRAYSCALE MINI FUNCTION 
