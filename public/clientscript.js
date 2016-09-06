@@ -149,10 +149,8 @@ clientScript.controller('clientController', function($scope, Upload) {
 			var ctx = document.getElementById("theCanvas").getContext("2d");
 			ctx.clearRect(0,0,canvasWidth,canvasHeight); // clear canvas
 			ctx.font = "16px Font";
-            ctx.fillText("PLEASE UPLOAD", 10,
-					canvasHeight/4);
-            ctx.fillText("BOTH STAGES.", 10,
-					canvasHeight/2);
+            ctx.fillText("Please Upload both", 15, canvasHeight-44); //20 padding plus 24 line height
+            ctx.fillText("stages", 15, canvasHeight-15); 
         }
     };
 
