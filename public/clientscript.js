@@ -135,12 +135,8 @@ clientScript.controller('clientController', function($scope, Upload) {
                 fabThumbnail.clipTo = function(ctx) {
                     path.render(ctx);
                 };
-                fabThumbnail.add(imgInstance._element);
-                //stage.imageElem.src = imgInstance._element;
-                /*Upload.base64DataUrl(imgInstance)
-                .then(function (url) {
-                    stage.imageElem.src = url;
-                });*/
+                fabThumbnail.add(imgInstance);
+                stage.imageElem.src = fabThumbnail.toDataURL();
             });
         }
     };
