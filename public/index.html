@@ -21,7 +21,8 @@
     <body ng-controller="clientController">
         <img src="./images/evolve%20yoself.png" alt="Evolve Yo'self"         
                     class="header" />
-        <div class="appBody" id="interface">
+        <form class="appBody" id="interface" method="POST"
+              enctype="multipart/form-data" action="/rest/video">
 
             <div class="sidemenu">
                 <!--iterate over two stages-->
@@ -67,11 +68,10 @@
                 <select id="evolStyle"
                     ng-options="style.name for style in evolveStyles"
                     ng-model="evolutionStyle" class="styleSelector"></select>
-                <button ng-click="downloadProduct" id="download"
-                        class="controlButton">
-                    <img src="./images/download!.png" alt="Download!"
-                        class="controlButtonImage">
-                </button>
+                <input type="submit" class="controlButton" value="Download!" />
+                <!-- TODO use image for submit button -->
+                    <!--<img src="./images/download!.png" alt="Download!"
+                        class="controlButtonImage">-->
                 <button ng-click="initAnimation()" id="runDemo"
                         class="controlButton">
                     <img src="./images/evolve!.png" alt="Evolve!"
@@ -81,7 +81,7 @@
             <br>
             <!--stand in for leaderboard adsence add-->
             <canvas class="canvas" width="728" height="90" padding-top="10px"></canvas>
-        </div>
+        </form>
         
 	    <!--hidden canvas for grayscaling-->
 	    <div hidden>
