@@ -49,32 +49,26 @@ clientScript.controller('clientController', function($scope, Upload) {
         var stage = isStage1 ? $scope.stages[1] : $scope.stages[0];
         
         if(elapsed < 10000){
-            if($scope.stages[0].name.length < 8){
-                ctx.font = "24px Early GameBoy";
-                ctx.fillText("What? " + $scope.stages[0].name, 15, canvasHeight-44); //20 padding plus 24 line height
-                ctx.fillText("is evolving!", 15, canvasHeight-12); //15 padding left, 12 padding below 
+            if($scope.stages[0].name.length < 10){
+                ctx.font = "16px Font";
+                ctx.fillText("What? " + $scope.stages[0].name, 10, canvasHeight-44); //20 padding plus 24 line height
+                ctx.fillText("is evolving!", 10, canvasHeight-10); //10 padding left and below
             }
             else{
-                ctx.font = "10px Early GameBoy";
+                ctx.font = "10px Font";
                 ctx.fillText("What? " + $scope.stages[0].name, 10, canvasHeight-44); //20 padding plus 24 line height
                 ctx.fillText("is evolving!", 10, canvasHeight-10); //10 padding left and below
             }
         }
         else{
-            if($scope.stages[0].name.length < 6){
-                ctx.font = "24px Early GameBoy";
+            if($scope.stages[0].name.length < 10 || $scope.stages[1].name.length < 10){
+                ctx.font = "16px Font";
                 ctx.fillText($scope.stages[0].name + " evolved", 10, canvasHeight-44); //20 padding plus 24 line height
-            }
-            else{
-                ctx.font = "10px Early GameBoy";
-                ctx.fillText($scope.stages[0].name + " evolved", 10, canvasHeight-44); //20 padding plus 24 line height
-            }
-            if($scope.stages[1].name.length < 9){
-                ctx.font = "24px Early GameBoy";
                 ctx.fillText("into " + $scope.stages[1].name + "!", 10, canvasHeight-10); //10 padding left and below
             }
             else{
-                ctx.font = "10px Early GameBoy";
+                ctx.font = "10px Font";
+                ctx.fillText($scope.stages[0].name + " evolved", 10, canvasHeight-44); //20 padding plus 24 line height
                 ctx.fillText("into " + $scope.stages[1].name + "!", 10, canvasHeight-10); //10 padding left and below
             }
         }
