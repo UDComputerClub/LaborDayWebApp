@@ -4,8 +4,10 @@ clientScript.controller('clientController', function($scope, Upload) {
     // Staged Images - eventually stores the image data
     $scope.thumbnailSide = 64;
     $scope.stages = [
-        {image:null, imageElem: new Image(), showLabel: true, name: "POKEMON"},
-        {image:null, imageElem: new Image(), showLabel: true, name: "POKEMON"}
+        {image:null, imageElem: new Image(), showLabel: true,
+				name: "POKEMON ONE"},
+        {image:null, imageElem: new Image(), showLabel: true,
+				name: "POKEMON TWO"}
     ];
 
     function renderGen1(ctx) {
