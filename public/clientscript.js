@@ -5,9 +5,9 @@ clientScript.controller('clientController', function($scope, Upload) {
     $scope.thumbnailSide = 64;
     $scope.stages = [
         {image:null, imageElem: new Image(), showLabel: true,
-				name: "POKEMON ONE"},
+				name: "POKEMON 1"},
         {image:null, imageElem: new Image(), showLabel: true,
-				name: "POKEMON TWO"}
+				name: "POKEMON 2"}
     ];
 
     function renderGen1(ctx) {
@@ -140,8 +140,17 @@ clientScript.controller('clientController', function($scope, Upload) {
     };
 
     $scope.initAnimation = function(){
-        startTime = new Date() - 15000;
-        animateOn = true;
+		if(($scope.stages[0].image != null) &&
+				($scope.stages[1].image != null)) {
+        	startTime = new Date() - 15000;
+        	animateOn = true;
+		} else {
+			var ctx = document.getElementById("theCanvas").getContext("2d");
+			ctx.clearRect(0,0,canvasWidth,canvasHeight); // clear canvas
+			ctx.font = "16px Font";
+            ctx.fillText("PLEASE UPLOAD BOTH STAGES.", 10,
+					canvasHeight/2-16);
+		}
     };
 
     $scope.drawThumbnail = function(stage, ctx) {
