@@ -4,10 +4,10 @@ clientScript.controller('clientController', function($scope, Upload) {
     // Staged Images - eventually stores the image data
     $scope.thumbnailSide = 64;
     $scope.stages = [
-        {image:null, imageElem: new Image(), showLabel: true,
-				name: "POKEMON ONE"},
-        {image:null, imageElem: new Image(), showLabel: true,
-				name: "POKEMON TWO"}
+        {image:null, imageElem: new Image(), fabricImage: null, name: "POKEMON ONE",
+            drawing: false, number: 1, showLabel: true},
+        {image:null, imageElem: new Image(), fabricImage: null, name: "POKEMON TWO",
+            drawing: false, number: 2, showLabel: true}
     ];
 
     function renderGen1(ctx) {
@@ -119,13 +119,14 @@ clientScript.controller('clientController', function($scope, Upload) {
         Upload.base64DataUrl(stage.image)
             .then(function (url) {
                 stage.imageElem.src = url;
+            })
+            .then(function() {
+                stage.fabricImage = new fabric.Image(stage.imageElem)
+            })
+            .then(function() {
+                stage.drawing = true;
             });
 		stage.showLabel = false;
-        //$scope.stageImage[stage] = getAsDataURL(file);
-        //$scope.stageShown[stage] = true;
-        //var fd = new FormData();
-        //Take the first selected file
-        //fd.append("stage"+stage.toString(), files[0]);*/
     };
 
     // crops a selected file based on its preview
@@ -145,7 +146,38 @@ clientScript.controller('clientController', function($scope, Upload) {
     };
 
     $scope.drawThumbnail = function(stage, ctx) {
-        ctx.drawImage(stage.imageElem, 0, 0, spriteDim, spriteDim);
+        // sorry if this is bad angular, Brian
+        if (stage.drawing) {
+            stage.drawing = false;
+
+            var fabThumbnail = new fabric.Canvas("thumb"+stage.number, {
+                isDrawingMode: true
+            });
+
+            var imgInstance = new fabric.Image(stage.imageElem, {
+                left: 0,
+                top: 0,
+            });
+            imgInstance.width = spriteDim;
+            imgInstance.height = spriteDim;
+
+            fabThumbnail.add(imgInstance);
+
+            fabThumbnail.freeDrawingBrush.color = "black";
+            fabThumbnail.freeDrawingBrush.width = 2;
+
+            fabThumbnail.on('path:created', function(options) {
+                var path = options.path;
+                fabThumbnail.isDrawingMode = false;
+                fabThumbnail.remove(imgInstance);
+                fabThumbnail.remove(path);
+                fabThumbnail.clipTo = function(ctx) {
+                    path.render(ctx);
+                };
+                fabThumbnail.add(imgInstance);
+                stage.imageElem.src = fabThumbnail.toDataURL();
+            });
+        }
     };
 
 
