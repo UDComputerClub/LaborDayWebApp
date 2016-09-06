@@ -46,7 +46,8 @@
                         right-->
                     <canvas class="thumbnail" width="128px" height="128px"
                         ldw-render="drawThumbnail(stage, $ctx)"
-                        ng-hide="stage.showLabel"></canvas>
+                        ng-hide="stage.showLabel" id="thumb{{$index+1}}">
+					</canvas>
                     <br>
 
                     <input type="text" ng-model="stage.name" 
